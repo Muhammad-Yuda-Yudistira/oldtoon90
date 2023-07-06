@@ -1,0 +1,12 @@
+.content {
+    width: 100%;
+}
+.content .image {
+    width: 30%;
+}
+.content .image a {
+    width: 30%;
+}
+.content .image img {
+    width: 100%;
+}

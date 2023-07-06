@@ -1,0 +1,17 @@
+.content-image {
+    display: flex;
+    flex-direction: column;
+}
+.image-detail {
+    width: 60%;
+}
+.image-detail img {
+    width: 100%;
+}
+
+.comment {
+    background-color: #eee;
+}
+.comment-result {
+    background-color: #ddd;
+}

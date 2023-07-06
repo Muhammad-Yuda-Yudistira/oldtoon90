@@ -1,0 +1,34 @@
+.alert {
+    display: inline-block;
+    background-color: #47A992;
+    width: 100%;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #eee;
+}
+
+.icon-reaction {
+    display: flex;
+    padding: 10px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+}
+.icon-reaction svg, .icon-reaction img {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+}
+.icon-reaction #icon-click {
+    cursor: pointer;
+}
+
+.profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.profile img {
+    width: 100%;
+}

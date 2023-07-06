@@ -1,0 +1,21 @@
+.container {
+    display: grid;
+    justify-content: center;
+}
+.about {
+    padding-top: 50px;
+}
+.about, .info-upload, .superiority, .goals {
+    padding-bottom: 50px;
+    color: #333;
+}
+.about {
+    list-style-type: none;
+}
+.about li {
+    padding-bottom: 10px;
+}
+.superiority dd, .goals dd {
+    color: #7A3E3E;
+    padding-bottom: 30px;
+}

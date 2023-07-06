@@ -1,0 +1,27 @@
+.content-admin.upload {
+    min-height: 100vh;
+}
+.content-admin .ket {
+    color: rgba(0, 0, 255, 0.5);
+}
+.episode-input {
+    width: 300px;
+    margin: auto;
+    text-align: left;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+}
+.episode-input li {
+    padding-bottom: 10px;
+}
+.episode-input button {
+    width: 30%;
+    height: 30px;
+    margin: 20px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #47A992;
+    color: #eee;
+}

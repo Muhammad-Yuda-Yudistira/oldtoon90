@@ -1,0 +1,9 @@
+.footer-admin {
+    margin-left: 20%;
+    padding-left: 30px;
+    background-color: rgb(122, 141, 134);
+    width: calc(100% - 20%);
+}
+.footer-admin a {
+    color: rgb(21, 119, 86);
+}

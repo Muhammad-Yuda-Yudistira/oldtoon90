@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-transform: capitalize;
+}
+html {
+    margin: 0;
+    padding: 0;
+}
+.container-admin {
+    max-width: 100vw;
+    min-height: 100vh;
+    background-color: #ddd;
+}
+.content-admin {
+    text-align: center;
+    margin-left: 20%;
+    padding: 30px;
+    color: rosybrown;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-transform: capitalize;
+}
+.content-admin h2 {
+    font-size: 2rem;
+    padding-bottom: 30px;
+}
+.list-film td {
+    padding: 25px;
+}
+.btn {
+    width: 120px;
+    height: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    background-color: #47A992;
+    color: #eee;
+    text-decoration: none;
+    line-height: 30px;
+    box-shadow: 1px 1px 1px #666;
+}
+
+.btn-admin {
+    text-decoration: none;
+    background-color: blue;
+    padding: 3px 15px;
+    border-radius: 8px;
+    color: #eee;
+    font-family: arial;
+    font-weight: bold;
+}
+.btn-admin:nth-child(2) {
+    background-color: green;
+}
+.btn-admin:nth-child(3) {
+    background-color: red;
+}

@@ -1,0 +1,45 @@
+.sidebar {
+    grid-area: sidebar;
+    text-align: center;
+    background-color: #482121;
+    color: #ddd;
+    padding: 30px 10px;
+    width: 15vw;
+}
+.box-sidebar {
+    margin-bottom: 50px;
+}
+.list-next-film li:first-child, .result-voting li:first-child {
+    margin-top: 10px;
+}
+.list-next-film li:last-child, .result-voting li:last-child {
+    margin-bottom: 10px;
+}
+.list-next-film li {
+    margin-bottom: 5px;
+}
+.result-voting {
+    margin-top: 30px;
+    background-color: #ccc;
+    color: #333;
+    padding: 10px 0;
+}
+.result-voting ul {
+    list-style-type: none;
+}
+
+.papan-chat {
+    height: 250px;
+    width: 100%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    overflow-x: auto;
+}
+.user {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #111;
+}
+.user .username {
+    background-color: #aaa;
+}

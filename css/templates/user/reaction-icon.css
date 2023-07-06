@@ -1,0 +1,11 @@
+.reaction {
+    display: flex;
+    justify-content: center;
+}
+.icon-reaction svg, .icon-reaction .angka {
+    fill: #999;
+    color: #999;
+}
+#like.change-value, #nostalgia.change-value {
+    fill: #7A3E3E;
+}

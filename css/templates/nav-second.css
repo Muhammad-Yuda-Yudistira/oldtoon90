@@ -1,0 +1,30 @@
+.nav-second {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    top: 50px;
+    padding: 5px 100px;
+    background-color: #7A3E3E;
+    width: 100%;
+    color: #eee;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    text-align: end;
+    box-shadow: 0px 0px 2px #fff;
+}
+.nav-second ul {
+    list-style: none;
+    display: flex;
+    justify-content: end;
+}
+.nav-second ul li {
+    padding-right: 15px;
+}
+.nav-second ul a {
+    text-decoration: none;
+    color: #ccc;
+    font-weight: 600;
+}
+.nav-second ul a:hover {
+    color: #eee;
+}

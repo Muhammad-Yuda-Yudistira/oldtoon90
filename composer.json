@@ -1,0 +1,18 @@
+{
+    "name": "yudis/kids90",
+    "description": "website kartin zaman dulu",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Yudis\\Kids90\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Muhammad-Yuda-Yudistira",
+            "email": "yudistira22112022@gmail.com"
+        }
+    ],
+    "require": {}
+}

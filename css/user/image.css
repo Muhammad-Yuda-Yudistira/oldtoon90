@@ -1,0 +1,17 @@
+.content-admin .title {
+    padding-bottom: 20px;
+}
+.list-form {
+    list-style: none;
+    width: 300px;
+    margin: auto;
+}
+.list-form li {
+    display: grid;
+    text-align: left;
+    padding-bottom: 10px;
+}
+/* pr: parent child */
+/* .list-form li input[type=file], .list-form li label[for=image] {
+    display: inline;
+} */ 
