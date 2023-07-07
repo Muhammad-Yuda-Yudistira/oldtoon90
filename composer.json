@@ -1,11 +1,11 @@
 {
-    "name": "yudis/kids90",
-    "description": "website kartin zaman dulu",
+    "name": "yudis/oldtoon90",
+    "description": "website kartun zaman dulu",
     "type": "project",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Yudis\\Kids90\\": "src/"
+            "Yudis\\Lawastoon90\\": "src/" 
         }
     },
     "authors": [
@@ -14,5 +14,7 @@
             "email": "yudistira22112022@gmail.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
 }

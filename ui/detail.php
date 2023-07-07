@@ -28,7 +28,7 @@ $id = $_GET['id'];
         <div class="container-detail">
             <div class="content-detail">
                 <div class="image">
-                    <img src="<?= $d['cover'] ?>" alt="<?= $d['title'] ?>">
+                    <img src="<?= $baseurl . $d['cover'] ?>" alt="<?= $d['title'] ?>">
                 </div>
                 <div class="detail">
                     <ul>

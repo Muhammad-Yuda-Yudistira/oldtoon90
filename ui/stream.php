@@ -28,11 +28,9 @@ $urlSubtitle = $epsFilm['url_subtitle'];
     <h2 class="title">Livestreaming</h2>
     <p class="sub-title"><?= $title ?>, episode <?= $episode ?></p>
 
-    <!-- <video src="<?= $baseurl . $urlVideo; ?>" type="video/mp4" class="streaming" controls poster="<?= $cover ?>">
+    <video src="<?= $videoServerUrl . $title . "/" . $urlVideo ?>" type="video/mp4" class="streaming" controls poster="<?= $baseurl . $cover ?>">
         <track src="<?= $baseurl . $urlSubtitle; ?>" default />
-    </video> -->
-
-    <iframe src="http://localhost/2023/mei/dbs-film/scooby-doo/scooby-doo, where are you!/1.mp4" frameborder="0" class="streaming" width="600" height="400"></iframe>
+    </video>
 
     <?php require_once "templates/user/reaction-icon.php" ?>
 
@@ -48,7 +46,5 @@ $urlSubtitle = $epsFilm['url_subtitle'];
     <?php require_once "templates/user/comments.php" ?>
 
 </div>
-
-<script src="<?= $baseurl; ?>js/script.js"></script>
 
 <?php require 'templates/footer.php' ?>

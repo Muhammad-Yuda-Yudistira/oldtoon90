@@ -7,6 +7,8 @@ const nostalgia = document.querySelector('#nostalgia')
 const nilai = document.querySelector('.nilai')
 const watched = document.querySelector('#watched')
 
+const baseurl = "http://localhost/2023/mei/oldtoon90/"
+
 
 document.addEventListener('DOMContentLoaded', function() {
     // Tempatkan seluruh kode JavaScript Anda di sini
@@ -24,12 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
         watched.style.fill = "#7A3E3E"
     }
 
-    if(watched.dataset.user)
-    {
+    
         streaming.addEventListener('ended', function() {
     
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://localhost/2023/mei/kids90/ui/templates/user/helper/watched.php?eps=' + watched.dataset.eps, true);
+            xhr.open('GET', baseurl + 'ui/templates/user/helper/watched.php?eps=' + watched.dataset.eps, true);
             xhr.onload = function()
             {
                 if(xhr.status == 200)
@@ -42,9 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             xhr.send()
         })
-    }
+   
 
-    console.log(like.dataset.haslike);
     if(like.dataset.hasLike == true)
     {
         like.classList.add('change-value')
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
         like.addEventListener('click', function() {
     
             const xhr = new XMLHttpRequest()
-            xhr.open('GET', 'http://localhost/2023/mei/kids90/ui/templates/user/helper/like.php?eps=' + like.dataset.eps, true)
+            xhr.open('GET', baseurl + 'ui/templates/user/helper/like.php?eps=' + like.dataset.eps, true)
             xhr.onload = function()
             {
                 if(xhr.status == 200)
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         nostalgia.addEventListener('click', function() {
     
             const xhr = new XMLHttpRequest()
-            xhr.open('GET', 'http://localhost/2023/mei/kids90/ui/templates/user/helper/nostalgia.php?eps=' + nostalgia.dataset.eps, true)
+            xhr.open('GET', baseurl + 'ui/templates/user/helper/nostalgia.php?eps=' + nostalgia.dataset.eps, true)
             xhr.onload = function()
             {
                 if(xhr.status == 200)

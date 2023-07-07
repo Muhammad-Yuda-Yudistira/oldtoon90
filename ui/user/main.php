@@ -48,7 +48,7 @@ if(isset($_COOKIE['remember']))
                     <a href="<?= $baseurl; ?>ui/detail.php?id=<?= $id ?>">
                         <div class="card">
                             <div class="img">
-                                <img src="<?= $d['cover'] ?>">
+                                <img src="<?= $baseurl . $d['cover'] ?>">
                             </div>
                             <ul class="card-fill">
                                 <li><span class="list-title">Judul:</span> <?= $d['title'] ?></li>

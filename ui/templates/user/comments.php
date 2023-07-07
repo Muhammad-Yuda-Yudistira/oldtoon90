@@ -1,23 +1,11 @@
-<?php 
+<?php
 require_once "../models/comments_model.php";
 
-// if(isset($_SESSION['id']))
-// {
-//     $id = $_SESSION['id']; 
-//     $user = query("SELECT * FROM user WHERE id_user=$id");
-    
-//     $userEmail = $user[0]['email'];
-//     $picture = $user[0]['picture'];
-    
-//     $title = $_GET['title'];
-//     $eps = $_GET['eps'];
-// }
-?>
-
-<?php
 if(isset($_SESSION['email']))
 {
     $userEmail = $_SESSION['email'];
+    $picture = query("SELECT picture FROM user WHERE email='$userEmail'");
+    $picture = $picture[0]['picture'];
 }
 
 if(isset($_POST['send']))
@@ -41,7 +29,7 @@ $idFilm = $idFilm[0]['id'];
     <div class="comment">
         <div class="comment-title">
             <div class="profile">
-                <img src="<?= isset($picture) ? $picture : "http://localhost/2023/mei/kids90/users/blank-profile.webp" ?>">
+                <img src="<?= isset($picture) ? $baseurl . $picture : $baseurl . "images/users/blank-profile.webp" ?>">
             </div>
             <h5 style="color:#47A992;"><?= isset($userEmail) ? $userEmail : "Anonymous" ?></h5>
         </div>
@@ -67,7 +55,7 @@ $idFilm = $idFilm[0]['id'];
             <div class="comment-result">
                 <div class="comment-title">
                     <div class="profile">
-                        <img src="<?= $comment['picture'] ?>">
+                        <img src="<?= $baseurl . $comment['picture'] ?>">
                     </div>
                     <h5 style="color:#47A992;"><?= $comment['email'] ?></h5>
                 </div>

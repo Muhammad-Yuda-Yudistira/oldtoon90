@@ -67,7 +67,7 @@ function addFilm($data)
     $hubDay = rtrim($hubDay, ",");
     $year = intval($year);
 
-    $cover = $baseurl . "images/" . $cover; 
+    $cover = "images/covers/" . $cover; 
 
     $resultFilm = addQuery("INSERT INTO film VALUES('','$title',$episode,'$film','$type','$aired',$series,'$franchise','$authors','$artists','$studios','$cover')");
 
