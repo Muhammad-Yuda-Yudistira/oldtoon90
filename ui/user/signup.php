@@ -19,7 +19,14 @@ if(isset($_POST['submit']))
         "password2" => $_POST['password2'],
     ];
 
-    signup($data);
+    $alert = signup($data);
+
+    if($alert == "success")
+    {
+        $_SESSION['success'] = $alert;
+        header("Location: $baseurl");
+        exit();
+    }
     
 }
 ?>
@@ -35,10 +42,18 @@ if(isset($_POST['submit']))
             <span>
                 <label for="username">Username</label>
                 <input type="username" name="username" id="username" required value="<?= isset($_SESSION['username'])? $_SESSION['username'] : ''; ?>">
+
+                <?php if(isset($alert) && $alert == "username"): ?>
+                    <span class="alert-input">username has been used!</span>
+                <?php endif; ?>
             </span>
             <span>
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" required value="<?= isset($_SESSION['email'])? $_SESSION['email'] : ''; ?>">
+
+                <?php if(isset($alert) && $alert == "email"): ?>
+                    <span class="alert-input">email has been registered!</span>
+                <?php endif; ?>
             </span>
             <span>
                 <label for="password">Password</label>
@@ -47,6 +62,10 @@ if(isset($_POST['submit']))
             <span>
                 <label for="password2">Repeat Password</label>
                 <input type="password" name="password2" id="password2" required>
+
+                <?php if(isset($alert) && $alert == "password"): ?>
+                    <span class="alert-input">password hasn't matched!</span>
+                <?php endif; ?>
             </span>
             <button type="submit" name="submit">signup</button>
         </form>

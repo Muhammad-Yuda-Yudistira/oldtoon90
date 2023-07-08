@@ -18,14 +18,9 @@ function signup($data)
         $_SESSION['email'] = $email;
         $_SESSION['username'] = $username;
 
-        $messagePasswordError = "password hasn\'t matched!";
+        $alert = "password";
 
-        echo "<script>
-                alert('" . $messagePasswordError . "')
-                window.location.href = '" . $baseurl . "ui/user/signup.php'
-            </script>";
-
-        die;
+        return $alert;
     }
 
     foreach($users as $user)
@@ -39,14 +34,9 @@ function signup($data)
             $_SESSION['username'] = $username;
 
 
-            $messageEmailError = "email has been registered!";
+            $alert = "email";
 
-            echo "<script>
-                    alert('" . $messageEmailError . "')
-                    window.location.href = '" . $baseurl . "ui/user/signup.php'
-                </script>";
-
-            die;
+            return $alert;
         }
         if($username == $user['username'])
         {
@@ -56,25 +46,20 @@ function signup($data)
             $_SESSION['email'] = $email;
             $_SESSION['username'] = $username;
 
-            $messageUsernameError = "username has been used!";
+            $alert = "username";
 
-            echo "<script>
-                    alert('" . $messageUsernameError . "')
-                    window.location.href = '" . $baseurl . "ui/user/signup.php'
-                </script>";
-
-            die;
+            return $alert;
         }
     }
 
-    $picture = $baseurl . 'users/blank-profile.webp';
+    $picture = 'images/users/blank-profile.webp';
     $role = 'user';
     $result = addQuery("INSERT INTO user (id, username, email, password, picture, role, created_at) VALUES ('','$username','$email','$password','$picture','$role',NOW())");
     
                 
     if($result < 0)
     {
-        echo mysqli_error($conn);
+        return mysqli_error($conn);
     }
     else 
     {
@@ -87,11 +72,8 @@ function signup($data)
         $_SESSION['key'] = $key;
         $_SESSION['id'] = $id;
         
+        $alert = "success";
 
-        echo "<script>
-                alert('signup has succesed!')
-                window.location.href = '" . $baseurl . "'
-            </script>";
-        die;
+        return $alert;
     }
 }

@@ -29,6 +29,7 @@
     <!-- support -->
     <link rel="stylesheet" href="<?= $baseurl ?>css/join.css">
 
+    <!-- registration -->
     <link rel="stylesheet" href="<?= $baseurl ?>css/user/login.css">
 </head>
 <body>
