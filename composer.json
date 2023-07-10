@@ -1,11 +1,11 @@
 {
     "name": "yudis/oldtoon90",
-    "description": "website kartun zaman dulu",
+    "description": "website museum kartun 90an sampai 2000an",
     "type": "project",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Yudis\\Lawastoon90\\": "src/" 
+            "Yudis\\Oldtoon90\\": "src/"
         }
     },
     "authors": [
