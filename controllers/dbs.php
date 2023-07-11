@@ -11,7 +11,7 @@ function query($query)
 
     if(mysqli_num_rows($data) == 0)
     {
-        return "data tidak ada";
+        return $rows;
     }
     else 
     {
@@ -33,6 +33,14 @@ function addQuery($query)
 }
 
 function updateQuery($query)
+{
+    global $conn;
+    $result = mysqli_query($conn, $query);
+    $alert = mysqli_affected_rows($conn);
+    return $alert;
+}
+
+function deleteQuery($query)
 {
     global $conn;
     $result = mysqli_query($conn, $query);

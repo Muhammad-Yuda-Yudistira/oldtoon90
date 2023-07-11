@@ -1,4 +1,6 @@
 <?php
+require __DIR__ . "/../../models/signupModel.php";
+
 function signup($data)
 {
     global $conn, $baseurl;
@@ -8,7 +10,7 @@ function signup($data)
     $password = hash('sha256', $data['password']);
     $password2 = hash('sha256', $data['password2']);
 
-    $users = query("SELECT * FROM user");
+    $users = getAllUser();
 
     if($password !== $password2)
     {
@@ -54,8 +56,17 @@ function signup($data)
 
     $picture = 'images/users/blank-profile.webp';
     $role = 'user';
-    $result = addQuery("INSERT INTO user (id, username, email, password, picture, role, created_at) VALUES ('','$username','$email','$password','$picture','$role',NOW())");
-    
+
+    $data = 
+    [
+        'username' => $username,
+        'email' => $email,
+        'password' => $password,
+        'picture' => $picture,
+        'role' => $role
+    ];
+
+    $result = addUser($data);
                 
     if($result < 0)
     {
@@ -64,8 +75,8 @@ function signup($data)
     else 
     {
         $key = hash('sha256', $email);
+        $id = getIdUser($email);
 
-        $id = query("SELECT id FROM user WHERE email='$email'");
         $id = $id[0]['id'];
         
         $_SESSION['login'] = true;
