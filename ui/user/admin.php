@@ -3,18 +3,26 @@ session_start();
 require_once "../../config/config.php";
 require_once "../../controllers/dbs.php";
 
-if(isset($_COOKIE['remember']) && $_COOKIE['key'] == hash('sha256', $_SESSION['email']))
+if(isset($_COOKIE['remember']))
 {
-    $email = $_SESSION['email'];
+    $allUser = query("SELECT * FROM user");
+    foreach($allUser as $user)
+    {
+        $key = hash('sha256', $user['email'] . $user['password']);
+        $key2 = hash('sha256', $user['username'] . $user['password']);
 
-    $_SESSION['admin'] = "admin";
-    $admin = $_SESSION['admin'];
+        if($_COOKIE['key'] == $key || $_COOKIE['key'] == $key2)
+        {
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = 'admin';
+        }
+    }
 }
 
 $film = query("SELECT * FROM film");
 ?>
 
-<?php if($_SESSION['admin'] == "admin"): ?>
+<?php if($_SESSION['role'] == "admin"): ?>
 
     <?php 
         require "./../../controllers/film.php";

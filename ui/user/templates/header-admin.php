@@ -1,3 +1,5 @@
+<?php require "../../config/config.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +9,14 @@
     
     <title>Home</title>  
 
-    <link rel="stylesheet" href="http://localhost/2023/mei/kids90/css/user/templates/nav-admin.css">
-    <link rel="stylesheet" href="http://localhost/2023/mei/kids90/css/templates/footer.css">
-    <link rel="stylesheet" href="http://localhost/2023/mei/kids90/css/user/templates/footer-admin.css">
+    <link rel="stylesheet" href="<?= $baseurl ?>css/user/templates/nav-admin.css">
+    <link rel="stylesheet" href="<?= $baseurl ?>css/templates/footer.css">
+    <link rel="stylesheet" href="<?= $baseurl ?>css/user/templates/footer-admin.css">
 
-    <link rel="stylesheet" href="http://localhost/2023/mei/kids90/css/user/templates/admin.css">
-    <link rel="stylesheet" href="http://localhost/2023/mei/kids90/css/user/episode.css">
-    <link rel="stylesheet" href="http://localhost/2023/mei/kids90/css/user/film.css">
-    <link rel="stylesheet" href="http://localhost/2023/mei/kids90/css/user/image.css">
-    <link rel="stylesheet" href="http://localhost/2023/mei/kids90/css/user/comic.css">
+    <link rel="stylesheet" href="<?= $baseurl ?>css/user/templates/admin.css">
+    <link rel="stylesheet" href="<?= $baseurl ?>css/user/episode.css">
+    <link rel="stylesheet" href="<?= $baseurl ?>css/user/film.css">
+    <link rel="stylesheet" href="<?= $baseurl ?>css/user/image.css">
+    <link rel="stylesheet" href="<?= $baseurl ?>css/user/comic.css">
 </head>
 <body>

@@ -75,13 +75,13 @@ function signup($data)
     else 
     {
         $key = hash('sha256', $email);
-        $id = getIdUser($email);
-
-        $id = $id[0]['id'];
+        $user = getUser($email);
+        $user = $user[0];
         
         $_SESSION['login'] = true;
-        $_SESSION['key'] = $key;
-        $_SESSION['id'] = $id;
+        $_SESSION['id'] = $user['id'];
+        $_SESSION['key'] = hash('sha256', $user['email'] . $user['password']);
+        $_SESSION['role'] = $user['role'];
         
         $alert = "success";
 

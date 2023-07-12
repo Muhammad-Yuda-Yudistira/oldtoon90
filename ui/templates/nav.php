@@ -34,7 +34,7 @@
 
                 <a href="" class="box-profile">
                     <li class="profile">
-                        <img src="<?= $baseurl ?>users/blank-profile.webp">
+                        <img src="<?= $baseurl ?>images/users/blank-profile.webp">
                     </li>
                 </a>
 

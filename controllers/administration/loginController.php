@@ -1,50 +1,63 @@
 <?php
-function login($email, $password)
-{
-    $allEmail = query("SELECT email FROM user");
+require __DIR__ . "/../../models/loginModel.php";
 
-    $role = query("SELECT role FROM user WHERE email='$email'");
-    if($role == [])
+function login($emailOrUsername, $password)
+{
+    $allUser = getAllUser();
+    $user = getUser($emailOrUsername);
+
+    $password = hash('sha256', $password);
+
+    if($user == [])
     {
         return false;
     }
-    $role = $role[0]['role'];
-    
-    if($role == 'admin')
+    foreach($user as $u)
     {
-        if(isset($_POST['remember']))
+        foreach($allUser as $userDbs) 
         {
-            setcookie('remember', 'admin', time() + 60*60*24*7, "/");
-            $emailCookie = hash('sha256', $email);
-            setcookie('key', $emailCookie, time() + 60*60*24*7, "/");
-            setcookie('email', $email, time() + 60*60*24*7, "/");
-        }
-
-        $_SESSION['admin'] = $role;
-        $_SESSION['email'] = $email;
-        
-        return $role;
-    }
-
-    foreach($allEmail as $e) 
-    {
-        if($email == $e['email'])
-        {
-            $key = hash('sha256', $email);
-
-            $_SESSION['login'] = true;
-            $_SESSION['key'] = $key;
-            $_SESSION['email'] = $email;
-
-            if(isset($_POST['remember']))
+            if($emailOrUsername == $userDbs['email'] || $emailOrUsername == $userDbs['username'])
             {
-                setcookie('remember', true, time() + 60*60*24*7, '/');
-                setcookie('login', $_SESSION['login'], time() + 60*60*24*7, '/');
-                setcookie('key', $key, time() + 60*60*24*7, '/');
-                setcookie('email', $email, time() + 60*60*24*7, '/');
-            }
+                if($password == $userDbs['password'])
+                {
+                    if($u['role'] == 'admin')
+                    {
+                        if(isset($_POST['remember']))
+                        {
+                            setcookie('remember', true, time() + 60*60*24*7, "/");
+                            setcookie('key', hash('sha256', $emailOrUsername . $password), time() + 60*60*24*7, '/');
+                        }
+                
+                        $_SESSION['role'] = $u['role'];
+                        $_SESSION['id'] = $u['id'];
+                        $_SESSION['key'] = hash('sha256', $emailOrUsername . $password);
 
-            return $role;
+                        $_SESSION['login'] = true;
+
+                        $_SESSION['username'] = $userDbs['username'];
+
+                        return $u['role'];
+                    }
+
+                    if(isset($_POST['remember']))
+                    {
+                        setcookie('remember', true, time() + 60*60*24*7, '/');
+                        setcookie('key', hash('sha256', $emailOrUsername . $password), time() + 60*60*24*7, '/');
+                    }
+
+                    $_SESSION['role'] = $u['role'];
+                    $_SESSION['id'] = $u['id'];
+                    $_SESSION['key'] = hash('sha256', $emailOrUsername . $password);
+                    $_SESSION['login'] = true;
+        
+                    return $u['role'];
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
+        return false;
     }
 }

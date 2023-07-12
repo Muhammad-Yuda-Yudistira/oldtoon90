@@ -14,15 +14,22 @@ $totalPages = 1;
 
 if(isset($_COOKIE['remember'])) 
 {
-    $email = $_COOKIE['email'];
-    $id = query("SELECT id FROM user WHERE email='$email'");
-    $id = $id[0]['id'];
-    $key = hash('sha256', $email);
+    $allUser = query("SELECT * FROM user");
 
-    $_SESSION['email'] = $email;
-    $_SESSION['login'] = true;
-    $_SESSION['key'] = $key;
-    $_SESSION['id'] = $id;
+    foreach($allUser as $user)
+    {
+        $key = hash('sha256', $user['email'] . $user['password']);
+        $key2 = hash('sha256', $user['username'] . $user['password']);
+
+        if($key == $_COOKIE['key'] || $key2 == $_COOKIE['key'])
+        {
+            $_SESSION['login'] = true;
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['key'] = $_COOKIE['key'];
+            $_SESSION['id'] = $user['id'];
+        }
+
+    }
 }
 ?>
 

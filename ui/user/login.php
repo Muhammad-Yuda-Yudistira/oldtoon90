@@ -6,7 +6,7 @@ require_once "../../controllers/dbs.php";
 require_once "../../controllers/administration/loginController.php";
 
 
-if(isset($_SESSION['admin'])) 
+if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin') 
 {
     header("Location:admin.php");
 }
@@ -14,10 +14,10 @@ if(isset($_SESSION['admin']))
 if(isset($_POST['submit'])) 
 {
     
-    $email = $_POST['email'];
+    $emailOrUsername = $_POST['emailOrUsername'];
     $password = $_POST['password'];
     
-    $result = login($email, $password);
+    $result = login($emailOrUsername, $password);
 
     if($result == "admin")
     {
@@ -50,8 +50,8 @@ if(isset($_POST['submit']))
         <h2>Login</h2>
         <form action="" method="post" class="box">
             <span>
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" required value="<?= isset($email)? $email : ''; ?>">
+                <label for="emailOrUsername">Email / Username</label>
+                <input type="text" name="emailOrUsername" id="emailOrUsername" required value="<?= isset($email)? $email : ''; ?>">
             </span>
             <span>
                 <label for="password">Password</label>

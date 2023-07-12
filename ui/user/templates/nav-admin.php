@@ -1,4 +1,4 @@
-<?php $email = $_SESSION['email'] ?>
+<?php $email = $_SESSION['username'] ?>
 
 <header class="menu-admin">
     <h3><?= $email ?></h3>

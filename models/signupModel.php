@@ -15,7 +15,7 @@ function addUser($data)
     return addQuery("INSERT INTO user (id, username, email, password, picture, role, created_at) VALUES ('','$username','$email','$password','$picture','$role',NOW())");
 }
 
-function getIdUser($email)
+function getUser($email)
 {
-    return query("SELECT id FROM user WHERE email='$email'");
+    return query("SELECT * FROM user WHERE email='$email'");
 }
