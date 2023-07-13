@@ -1,8 +1,11 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
+
+require 'vendor/autoload.php';
 require __DIR__ . "/../../controllers/administration/loginController.php";
 require __DIR__ . "/../../controllers/dbs.php";
+require __DIR__ . "/../../config/config.php";
 
 class LoginTest extends TestCase
 {

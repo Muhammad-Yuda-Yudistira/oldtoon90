@@ -1,11 +1,17 @@
 .add-film-form {
+    display: flex;
+    justify-content: center;
     width: 200px;
     margin: auto;
+}
+.group-input-film {
+    padding: 10px 30px;
+    margin-bottom: 15px;
 }
 .add-film-form li {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
     padding-bottom: 15px;
 }
 .add-film-form .radio-input, .add-film-form .checkbox-input {
@@ -15,4 +21,10 @@
 }
 .radio-input label, .checkbox-input label {
     padding: 0 10px 0 5px;
+}
+.film-button {
+    color: #eee;
+    background-color: rosybrown;
+    width: 100px;
+    height: 30px;
 }
