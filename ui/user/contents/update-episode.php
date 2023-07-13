@@ -7,6 +7,10 @@ if(isset($_COOKIE['remember']))
 {
     $_SESSION['admin'] = "admin";
 }
+
+$title = $_GET['title'];
+$film = query("SELECT * FROM film WHERE title='$title'");
+$film = $film[0];
  
 if(isset($_POST['add']))
 {
@@ -42,38 +46,38 @@ if(isset($_POST['add']))
         <?php require_once "../templates/nav-admin.php"; ?>
 
         <main class="content-admin">
-            <h2 class="title-admin">Tambah film baru</h2>
+            <h2 class="title-admin">Edit film</h2>
 
             <ul class="add-film-form">
                 <form action="" method="post" enctype="multipart/form-data">
                     <li>
                         <label for="title">title :</label>
-                        <input type="text" name="title" id="title">
+                        <input type="text" name="title" id="title" value="<?= $film['title'] ?>">
                     </li>
                     <li>
                         <label for="episode">jumlah episode :</label>
-                        <input type="number" name="episode" id="episode">
+                        <input type="number" name="episode" id="episode" value="<?= $film['episode'] ?>">
                     </li>
                     <fieldset class="group-input-film">
-                        <legend>jenis film :</legend>
+                        <legend>Jenis film :</legend>
                         <li class="radio-input">
-                            <input type="radio" name="film" id="serial" value="serial">
+                            <input type="radio" name="film" id="serial" value="serial" <?= $film['film'] == 'serial' ? 'checked' : '' ?>>
                             <label for="serial">serial</label>
     
-                            <input type="radio" name="film" id="movie" value="movie">
+                            <input type="radio" name="film" id="movie" value="movie" <?= $film['film'] == 'movie' ? 'checked' : '' ?>>
                             <label for="movie">movie</label>
                         </li>
                     </fieldset>
                     <fieldset class="group-input-film">
                         <legend>type film :</legend>
                         <li class="radio-input">
-                            <input type="radio" name="type" id="cartoon" value="cartoon">
+                            <input type="radio" name="type" id="cartoon" value="cartoon" <?= $film['type'] == 'cartoon' ? 'checked' : '' ?>>
                             <label for="cartoon">cartoon</label>
     
-                            <input type="radio" name="type" id="anime" value="anime">
+                            <input type="radio" name="type" id="anime" value="anime" <?= $film['type'] == 'anime' ? 'checked' : '' ?>>
                             <label for="anime">anime</label>
     
-                            <input type="radio" name="type" id="real" value="real">
+                            <input type="radio" name="type" id="real" value="real" <?= $film['type'] == 'real' ? 'checked' : '' ?>>
                             <label for="real">real</label>
                         </li>
                     </fieldset>
@@ -83,23 +87,23 @@ if(isset($_POST['add']))
                     </li>
                     <li>
                         <label for="series">series :</label>
-                        <input type="number" name="series" id="series">
+                        <input type="number" name="series" id="series" value="<?= $film['series'] ?>">
                     </li>
                     <li>
                         <label for="franchise">franchise :</label>
-                        <input type="text" name="franchise" id="franchise">
+                        <input type="text" name="franchise" id="franchise" value="<?= $film['franchise'] ?>">
                     </li>
                     <li>
                         <label for="authors">authors :</label>
-                        <input type="text" name="authors" id="authors">
+                        <input type="text" name="authors" id="authors" value="<?= $film['authors'] ?>">
                     </li>
                     <li>
                         <label for="artists">artists :</label>
-                        <input type="text" name="artists" id="artists">
+                        <input type="text" name="artists" id="artists" value="<?= $film['artists'] ?>">
                     </li>
                     <li>
                         <label for="studios">studios :</label>
-                        <input type="text" name="studios" id="studios">
+                        <input type="text" name="studios" id="studios" value="<?= $film['studios'] ?>">
                     </li>
                     <li>
                         <label for="cover">cover :</label>
@@ -132,7 +136,7 @@ if(isset($_POST['add']))
                         <input type="number" name="year" id="year" maxlength="4" value="1945">
                     </li>
                     <fieldset class="group-input-film">
-                        <legend>jadwal tayang channel local :</legend>
+                        <legend>hari tayang di channel local :</legend>
                         <li class="checkbox-input">
                             <input type="checkbox" name="day[]" id="senin" value="senin">
                             <label for="senin">senin</label>
@@ -156,7 +160,7 @@ if(isset($_POST['add']))
                             <label for="minggu">minggu</label>
                         </li>
                     </fieldset>
-                    <button type="submit" name="add">add film</button>
+                    <button type="submit" name="add" class="film-button">add film</button>
                 </form>
             </ul>
             

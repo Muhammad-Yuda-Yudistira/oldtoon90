@@ -4,8 +4,7 @@ require "../../../config/config.php";
 require "../../../controllers/dbs.php";
 require "../../../controllers/film.php";
 
-$admin = $_SESSION['admin'];
-$email = $_SESSION['email'];
+$admin = $_SESSION['role'];
 
 $title = $_GET['title'];
 
@@ -13,11 +12,6 @@ $title = $_GET['title'];
 $film = query("SELECT id, title, episode FROM film WHERE title='$title'");
 $titleId = $film[0]['id'];
 $eps = query("SELECT episode FROM episode_film WHERE title_id=$titleId");
-// foreach($eps as $e)
-// {
-//     var_dump($e);
-// }
-// die;
 ?>
 
 <?php if($admin == "admin"): ?>
@@ -101,6 +95,6 @@ if(isset($_POST["upload"]))
 
 <?php else: ?>
 
-    <?php header("Location:http://localhost/2023/mei/kids90/ui/user/login.php"); ?>
+    <?php header("Location:" . $baseurl . "ui/user/login.php"); ?>
 
 <?php endif; ?> //end session
