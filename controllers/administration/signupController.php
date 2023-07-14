@@ -82,6 +82,7 @@ function signup($data)
         $_SESSION['id'] = $user['id'];
         $_SESSION['key'] = hash('sha256', $user['email'] . $user['password']);
         $_SESSION['role'] = $user['role'];
+        $_SESSION['username'] = $user['username'];
         
         $alert = "success";
 

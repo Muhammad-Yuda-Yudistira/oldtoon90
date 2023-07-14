@@ -49,6 +49,7 @@ function login($emailOrUsername, $password)
                     $_SESSION['id'] = $u['id'];
                     $_SESSION['key'] = hash('sha256', $emailOrUsername . $password);
                     $_SESSION['login'] = true;
+                    $_SESSION['username'] = $userDbs['username'];
         
                     return $u['role'];
                 }

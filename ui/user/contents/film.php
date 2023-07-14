@@ -5,7 +5,7 @@ require "../../../controllers/film.php";
 
 if(isset($_COOKIE['remember']))
 {
-    $_SESSION['admin'] = "admin";
+    $_SESSION['role'] = "admin";
 }
  
 if(isset($_POST['add']))
@@ -34,7 +34,7 @@ if(isset($_POST['add']))
 }
 ?>
 
-<?php if($_SESSION['admin'] == "admin"): ?>
+<?php if($_SESSION['role'] == "admin"): ?>
     <?php require "../templates/header-admin.php" ?>
 
     <div class="container-admin">

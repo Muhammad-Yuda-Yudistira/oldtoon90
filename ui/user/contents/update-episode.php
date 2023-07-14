@@ -11,6 +11,13 @@ if(isset($_COOKIE['remember']))
 $title = $_GET['title'];
 $film = query("SELECT * FROM film WHERE title='$title'");
 $film = $film[0];
+
+$titleID = $film['id'];
+$tayangLocal = query("SELECT * FROM tayang_local WHERE title_id=$titleID");
+$tayangLocal = $tayangLocal[0];
+
+$channels = explode(',', $tayangLocal['channel']);
+$days = explode(',', $tayangLocal['hari']);
  
 if(isset($_POST['add']))
 {
@@ -102,6 +109,7 @@ if(isset($_POST['add']))
                         <input type="text" name="artists" id="artists" value="<?= $film['artists'] ?>">
                     </li>
                     <li>
+                        <img src="" alt="" width="100" height="50">
                         <label for="studios">studios :</label>
                         <input type="text" name="studios" id="studios" value="<?= $film['studios'] ?>">
                     </li>
@@ -112,22 +120,22 @@ if(isset($_POST['add']))
                     <fieldset class="group-input-film">
                         <legend>channel local :</legend>
                         <li class="checkbox-input">
-                            <input type="checkbox" name="channel[]" id="tpi" value="tpi">
+                            <input type="checkbox" name="channel[]" id="tpi" value="tpi" <?= in_array('tpi', $channels) ? 'checked' : ''; ?>>
                             <label for="tpi">tpi</label>
     
-                            <input type="checkbox" name="channel[]" id="indosiar" value="indosiar">
+                            <input type="checkbox" name="channel[]" id="indosiar" value="indosiar" <?= in_array('indosiar', $channels) ? 'checked' : ''; ?>>
                             <label for="indosiar">indosiar</label>
     
-                            <input type="checkbox" name="channel[]" id="antv" value="antv">
+                            <input type="checkbox" name="channel[]" id="antv" value="antv" <?= in_array('antv', $channels) ? 'checked' : ''; ?>>
                             <label for="antv">antv</label>
     
-                            <input type="checkbox" name="channel[]" id="rcti" value="rcti">
+                            <input type="checkbox" name="channel[]" id="rcti" value="rcti" <?= in_array('rcti', $channels) ? 'checked' : ''; ?>>
                             <label for="rcti">rcti</label>
     
-                            <input type="checkbox" name="channel[]" id="sctv" value="sctv">
+                            <input type="checkbox" name="channel[]" id="sctv" value="sctv" <?= in_array('sctv', $channels) ? 'checked' : ''; ?>>
                             <label for="sctv">sctv</label>
     
-                            <input type="checkbox" name="channel[]" id="trans7" value="trans7">
+                            <input type="checkbox" name="channel[]" id="trans7" value="trans7" <?= in_array('trans7', $channels) ? 'checked' : ''; ?>>
                             <label for="trans7">trans7</label>
                         </li>
                     </fieldset>
@@ -138,25 +146,25 @@ if(isset($_POST['add']))
                     <fieldset class="group-input-film">
                         <legend>hari tayang di channel local :</legend>
                         <li class="checkbox-input">
-                            <input type="checkbox" name="day[]" id="senin" value="senin">
+                            <input type="checkbox" name="day[]" id="senin" value="senin" <?= in_array('senin', $days) ? 'checked' : ''; ?>>
                             <label for="senin">senin</label>
     
-                            <input type="checkbox" name="day[]" id="selasa" value="selasa">
+                            <input type="checkbox" name="day[]" id="selasa" value="selasa" <?= in_array('selasa', $days) ? 'checked' : ''; ?>>
                             <label for="selasa">selasa</label>
     
-                            <input type="checkbox" name="day[]" id="rabu" value="rabu">
+                            <input type="checkbox" name="day[]" id="rabu" value="rabu" <?= in_array('rabu', $days) ? 'checked' : ''; ?>>
                             <label for="rabu">rabu</label>
     
-                            <input type="checkbox" name="day[]" id="kamis" value="kamis">
+                            <input type="checkbox" name="day[]" id="kamis" value="kamis" <?= in_array('kamis', $days) ? 'checked' : ''; ?>>
                             <label for="kamis">kamis</label>
     
-                            <input type="checkbox" name="day[]" id="jumat" value="jumat">
+                            <input type="checkbox" name="day[]" id="jumat" value="jumat" <?= in_array('jumat', $days) ? 'checked' : ''; ?>>
                             <label for="jumat">jumat</label>
     
-                            <input type="checkbox" name="day[]" id="sabtu" value="sabtu">
+                            <input type="checkbox" name="day[]" id="sabtu" value="sabtu" <?= in_array('sabtu', $days) ? 'checked' : ''; ?>>
                             <label for="sabtu">sabtu</label>
     
-                            <input type="checkbox" name="day[]" id="minggu" value="minggu">
+                            <input type="checkbox" name="day[]" id="minggu" value="minggu" <?= in_array('minggu', $days) ? 'checked' : ''; ?>>
                             <label for="minggu">minggu</label>
                         </li>
                     </fieldset>

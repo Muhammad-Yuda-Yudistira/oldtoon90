@@ -3,18 +3,24 @@ require_once "dbs.php";
 
 function uploadFilm($data)
 {
-    $fileName = $data['name'];
+    global $baseurl;
+
     $tmpName = $data['tmp_name'];
+    $fileName = $data['name'];
+    $ekstensi = explode('.', $fileName);
 
-    move_uploaded_file($tmpName, '../../../images/' . $fileName);
+    $panjangString = 10;
+    $karakter = $fileName;
+    $randomString = substr(str_shuffle($karakter), 0, $panjangString);
+    $newFileName = $randomString . "." . end($ekstensi);
 
-    return $fileName;
+    move_uploaded_file($tmpName, "../../../images/covers/" . $newFileName);
+
+    return $newFileName;
 }
 
 function uploadEpisode($title, $data)
 {
-    // global $videoServerUrl;
-
     $nameVideo = $data['video']['name'];
     $tmpNameVideo = $data['video']['tmp_name'];
 
@@ -68,6 +74,15 @@ function addFilm($data)
     $year = intval($year);
 
     $cover = "images/covers/" . $cover; 
+
+    $allFilm = query("SELECT * FROM film");
+    foreach($allFilm as $film)
+    {
+        if($film['title'] == $title)
+        {
+            echo "judul film sudah terdaftar! <a href='" . $baseurl . "ui/user/contents/film.php'>Back</a>"; die;
+        }
+    }
 
     $resultFilm = addQuery("INSERT INTO film VALUES('','$title',$episode,'$film','$type','$aired',$series,'$franchise','$authors','$artists','$studios','$cover')");
 

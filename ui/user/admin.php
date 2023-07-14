@@ -43,14 +43,15 @@ $film = query("SELECT * FROM film");
 
             <table border="1" cellspacing="0" class="list-film">
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Title</th>
                     <th>Film</th>
                     <th>Action</th>
                 </tr>
+                <?php $i = 1; ?>
                 <?php foreach($film as $f): ?>
                     <tr>
-                        <td><?= $f['id'] ?></td>
+                        <td><?= $i++ ?></td>
                         <td><?= $f['title'] ?></td>
                         <td><?= $f['film'] ?></td>
                         <td>

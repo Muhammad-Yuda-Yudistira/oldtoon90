@@ -27,6 +27,7 @@ if(isset($_COOKIE['remember']))
             $_SESSION['role'] = $user['role'];
             $_SESSION['key'] = $_COOKIE['key'];
             $_SESSION['id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
         }
 
     }
