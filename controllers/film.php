@@ -19,6 +19,41 @@ function uploadFilm($data)
     return $newFileName;
 }
 
+function updateCoverFilm($data, $existingCover)
+{
+    $tmpName = $data['tmp_name'];
+    $fileName = $data['name'];
+    $ekstensi = explode('.', $fileName);
+
+    if(!empty($fileName))
+    {
+        $panjangString = 10;
+        $karakter = $fileName;
+        $randomString = substr(str_shuffle($karakter), 0, $panjangString);
+        $newFileName = $randomString . "." . end($ekstensi);
+
+        $targetDirectory = "../../../images/covers/";
+        $targetFile = $targetDirectory . $newFileName;
+
+        $allCover = glob($targetDirectory . '*');
+        foreach($allCover as $file)
+        {
+            if($file == $targetDirectory . $existingCover)
+            {
+                unlink($file);
+            }
+        }
+
+    move_uploaded_file($tmpName, $targetFile);
+    }
+    else
+    {
+        $newFileName = $existingCover;
+    }
+
+    return $newFileName;
+}
+
 function uploadEpisode($title, $data)
 {
     $nameVideo = $data['video']['name'];
@@ -38,25 +73,24 @@ function uploadEpisode($title, $data)
     return $names;
 }
 
-function addFilm($data)
+function addFilm($data, $fileName)
 {
     global $baseurl;
 
-    $title = $data['film']['title'];
-    $episode = $data['film']['episode'];
-    $film = $data['film']['film'];
-    $type = $data['film']['type'];
-    $aired = $data['film']['aired'];
-    $series = $data['film']['series'];
-    $franchise = $data['film']['franchise'];
-    $authors = $data['film']['authors'];
-    $artists = $data['film']['artists'];
-    $studios = $data['film']['studios'];
-    $cover = $data['film']['cover'];
-    $channel = $data['film']['channel'];
-    $year = $data['film']['year'];
-    $day = $data['film']['day'];
-
+    $title = $data['title'];
+    $episode = $data['episode'];
+    $film = $data['film'];
+    $tipe = $data['tipe'];
+    $aired = $data['aired'];
+    $series = $data['series'];
+    $franchise = $data['franchise'];
+    $authors = $data['authors'];
+    $artists = $data['artists'];
+    $studios = $data['studios'];
+    $cover = $fileName;
+    $channel = $data['channel'];
+    $year = $data['year'];
+    $day = $data['day'];
     $hubChannel = "";
     $hubDay = "";
 
@@ -84,7 +118,7 @@ function addFilm($data)
         }
     }
 
-    $resultFilm = addQuery("INSERT INTO film VALUES('','$title',$episode,'$film','$type','$aired',$series,'$franchise','$authors','$artists','$studios','$cover')");
+    $resultFilm = addQuery("INSERT INTO film VALUES('','$title',$episode,'$film','$tipe','$aired',$series,'$franchise','$authors','$artists','$studios','$cover')");
 
     if($resultFilm > 0)
     {
@@ -108,6 +142,68 @@ function addFilm($data)
     }
 }
 
+function updateFilm($data, $fileName, $titleDBS)
+{
+    global $baseurl;
+
+    $title = $data['title'];
+    $episode = $data['episode'];
+    $film = $data['film'];
+    $type = $data['type'];
+    $aired = $data['aired'];
+    $series = $data['series'];
+    $franchise = $data['franchise'];
+    $authors = $data['authors'];
+    $artists = $data['artists'];
+    $studios = $data['studios'];
+    $cover = $fileName;
+    $channel = $data['channel'];
+    $year = $data['year'];
+    $day = $data['day'];
+
+    // $year = intval($year);
+    $hubChannel = "";
+    $hubDay = "";
+
+    foreach($channel as $c)
+    {
+        $hubChannel .= $c . ",";
+    }
+    foreach($day as $d)
+    {
+        $hubDay .= $d . ",";
+    }
+
+    $hubChannel = rtrim($hubChannel, ",");
+    $hubDay = rtrim($hubDay, ",");
+
+    $cover = "images/covers/" . $cover; 
+
+    $resultFilm = updateQuery("UPDATE film SET title='$title', episode=$episode, film='$film', tipe='$type',aired='$aired', series=$series, franchise='$franchise', authors='$authors', artists='$artists',studios='$studios', cover='$cover' WHERE title='$titleDBS'");
+
+    if($resultFilm > 0)
+    {
+        $idFilm = query("SELECT id FROM film WHERE title='$titleDBS'");
+        $idFilm = $idFilm[0]['id'];
+        $idfilm = intval($idFilm);
+        
+        $result = updateQuery("UPDATE tayang_local SET title_id=$idFilm, channel='$hubChannel', tahun=$year,hari='$hubDay' WHERE title_id=$idFilm");
+    
+        if($result > 0)
+        {
+            echo "<script>alert('Film berhasil diupdate')</script>";
+    
+            header("Location:" .$baseurl . "ui/user/admin.php");
+            exit();
+        }
+        echo "data tv local gagal di update!"; die;
+    }
+    else 
+    {
+        echo "data film gagal di update!";die;
+    }
+
+}
 function addEpisode($fileName, $title, $epsData)
 {
     global $baseurl, $videoServerUrl;

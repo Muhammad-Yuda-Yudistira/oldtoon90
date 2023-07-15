@@ -56,8 +56,8 @@ $film = query("SELECT * FROM film");
                         <td><?= $f['film'] ?></td>
                         <td>
                             <a href="<?= $baseurl ?>ui/user/contents/episode.php?title=<?= $f['title']; ?>" class="btn-admin">Add</a>
-                            <a href="<?= $baseurl ?>ui/user/contents/update-episode.php?title=<?= $f['title']; ?>" class="btn-admin" style="">Edit</a>
-                            <a href="#" class="btn-admin" style="text-decoration: red 3px line-through;">Hapus</a>
+                            <a href="<?= $baseurl ?>ui/user/contents/update-film.php?title=<?= $f['title']; ?>" class="btn-admin" style="">Edit</a>
+                            <a href="<?= $baseurl ?>controllers/film/delete-film.php?title=<?= $f['title']; ?>" class="btn-admin">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -12,6 +12,9 @@ $title = $_GET['title'];
 $film = query("SELECT * FROM film WHERE title='$title'");
 $film = $film[0];
 
+$coverName = explode('/', $film['cover']);
+$coverName = end($coverName);
+
 $titleID = $film['id'];
 $tayangLocal = query("SELECT * FROM tayang_local WHERE title_id=$titleID");
 $tayangLocal = $tayangLocal[0];
@@ -19,29 +22,11 @@ $tayangLocal = $tayangLocal[0];
 $channels = explode(',', $tayangLocal['channel']);
 $days = explode(',', $tayangLocal['hari']);
  
-if(isset($_POST['add']))
+if(isset($_POST['submit']))
 {
-    $fileName = uploadFilm($_FILES['cover']);
-
-    $data['film'] = [
-        "title" => $_POST['title'],
-        "episode" => $_POST['episode'],
-        "film" => $_POST['film'],
-        "type" => $_POST['type'],
-        "aired" => $_POST['aired'],
-        "series" => $_POST['series'],
-        "franchise" => $_POST['franchise'],
-        "authors" => $_POST['authors'],
-        "artists" => $_POST['artists'],
-        "studios" => $_POST['studios'],
-        "cover" => $fileName,
-        "channel" => $_POST['channel'],
-        "year" => $_POST['year'],
-        "day" => $_POST['day']
-    ];
+    $fileName = updateCoverFilm($_FILES['cover'], $_POST['existing_cover']);
     
-    addFilm($data);
-
+    updateFilm($_POST, $fileName, $title);
 }
 ?>
 
@@ -78,19 +63,19 @@ if(isset($_POST['add']))
                     <fieldset class="group-input-film">
                         <legend>type film :</legend>
                         <li class="radio-input">
-                            <input type="radio" name="type" id="cartoon" value="cartoon" <?= $film['type'] == 'cartoon' ? 'checked' : '' ?>>
+                            <input type="radio" name="type" id="cartoon" value="cartoon" <?= $film['tipe'] == 'cartoon' ? 'checked' : '' ?>>
                             <label for="cartoon">cartoon</label>
     
-                            <input type="radio" name="type" id="anime" value="anime" <?= $film['type'] == 'anime' ? 'checked' : '' ?>>
+                            <input type="radio" name="type" id="anime" value="anime" <?= $film['tipe'] == 'anime' ? 'checked' : '' ?>>
                             <label for="anime">anime</label>
     
-                            <input type="radio" name="type" id="real" value="real" <?= $film['type'] == 'real' ? 'checked' : '' ?>>
+                            <input type="radio" name="type" id="real" value="real" <?= $film['tipe'] == 'real' ? 'checked' : '' ?>>
                             <label for="real">real</label>
                         </li>
                     </fieldset>
                     <li>
                         <label for="aired">aired :</label>
-                        <input type="month" name="aired" id="aired">
+                        <input type="number" name="aired" min="1900" max="2099" step="1" placeholder="Tahun" required id="aired" value="<?= $film['aired'] ?>">
                     </li>
                     <li>
                         <label for="series">series :</label>
@@ -109,13 +94,18 @@ if(isset($_POST['add']))
                         <input type="text" name="artists" id="artists" value="<?= $film['artists'] ?>">
                     </li>
                     <li>
-                        <img src="" alt="" width="100" height="50">
                         <label for="studios">studios :</label>
                         <input type="text" name="studios" id="studios" value="<?= $film['studios'] ?>">
                     </li>
                     <li>
+                        <img src="<?= $baseurl . $film['cover'] ?>" alt="" width="100" height="50">
                         <label for="cover">cover :</label>
-                        <input type="file" name="cover" id="cover" accept=".jpg, .jpeg, .jfif, webp">
+                        <input type="file" name="cover" id="cover" accept=".jpg, .jpeg, .jfif, .webp">
+
+                        <?php if ($coverName): ?>
+                            <input type="hidden" name="existing_cover" value="<?= $coverName ?>">
+                            <p>Existing Cover: <?= $coverName ?></p>
+                        <?php endif; ?>
                     </li>
                     <fieldset class="group-input-film">
                         <legend>channel local :</legend>
@@ -168,7 +158,7 @@ if(isset($_POST['add']))
                             <label for="minggu">minggu</label>
                         </li>
                     </fieldset>
-                    <button type="submit" name="add" class="film-button">add film</button>
+                    <button type="submit" name="submit" class="film-button">update film</button>
                 </form>
             </ul>
             
