@@ -1,5 +1,5 @@
 <?php 
-require_once "dbs.php";
+require_once __DIR__ . "/dbs.php";
 
 function uploadFilm($data)
 {
@@ -110,11 +110,11 @@ function addFilm($data, $fileName)
     $cover = "images/covers/" . $cover; 
 
     $allFilm = query("SELECT * FROM film");
-    foreach($allFilm as $film)
+    foreach($allFilm as $filmItem)
     {
-        if($film['title'] == $title)
+        if($filmItem['title'] == $title)
         {
-            echo "judul film sudah terdaftar! <a href='" . $baseurl . "ui/user/contents/film.php'>Back</a>"; die;
+            return 1;
         }
     }
 
@@ -129,16 +129,13 @@ function addFilm($data, $fileName)
     
         if($result > 0)
         {
-            echo "<script>alert('Film berhasil ditambahkan')</script>";
-    
-            header("Location:" .$baseurl . "ui/user/admin.php");
-            exit();
+            return 4;
         }
-        echo "data tv local gagal di kirim!"; die;
+        return 3;
     }
     else 
     {
-        echo "data film gagal di kirim!";die;
+        return 2;
     }
 }
 

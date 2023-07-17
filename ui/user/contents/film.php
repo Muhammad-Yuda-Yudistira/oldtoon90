@@ -12,7 +12,26 @@ if(isset($_POST['add']))
 {
     $fileName = uploadFilm($_FILES['cover']);
     
-    addFilm($_POST, $fileName);
+    $result = addFilm($_POST, $fileName);
+
+    switch($result)
+    {
+        case 1:
+            echo "judul film sudah terdaftar! <a href='" . $baseurl . "ui/user/contents/film.php'>Back</a>";
+            break;
+        case 2:
+            echo "data film gagal di kirim!";
+            break;
+        case 3:
+            echo "data tv local gagal di kirim!";
+            break;
+        case 4:
+            echo "<script>alert('Film berhasil ditambahkan')</script>";
+    
+            header("Location:" .$baseurl . "ui/user/admin.php");
+            exit();
+    }
+    die;
 }
 ?>
 
