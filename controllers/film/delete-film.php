@@ -6,10 +6,20 @@ $result = deleteFilm($title);
 
 if($result)
 {
-    $backUrl = $_SERVER['HTTP_REFERER'];
-    header("Location:$backUrl");
+    $cover = deleteCover($title);
+    $targetFile = '../../' . $cover;
+    if(unlink($targetFile))
+    {
+        $backUrl = $_SERVER['HTTP_REFERER'];
+        header("Location:$backUrl");
+        exit();
+    }
+    else
+    {
+        echo "cover gagal dihapus!";
+    }
 }
 else
 {
-    echo "ada yang salah!";
+    echo "data film tidak terhapus!";
 }

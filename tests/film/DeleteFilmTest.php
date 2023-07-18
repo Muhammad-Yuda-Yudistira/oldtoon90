@@ -29,6 +29,12 @@ class DeleteFilmTest extends TestCase
         
         addFilm($data, $filename);
     }
+    // protected function tearDown(): void
+    // {
+    //     $title = 'sample film';
+
+    //     deleteFilm($title);
+    // }
     public function testDeleteFilmSuccessed()
     {
         $title = 'sample film';
@@ -36,5 +42,14 @@ class DeleteFilmTest extends TestCase
         $result = deleteFilm($title);
 
         $this->assertTrue($result);
+    }
+    public function testDeleteCoverSuccessed()
+    {
+        $title = 'sample film';
+        $cover = 'images/covers/sample-cover.jpg';
+
+        $result = deleteCover($title);
+
+        $this->assertEquals($cover, $result);
     }
 }

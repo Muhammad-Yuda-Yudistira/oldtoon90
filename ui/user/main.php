@@ -48,10 +48,9 @@ if(isset($_COOKIE['remember']))
             <div class="box-film">
 
                 <?php foreach($data as $d): ?>
-                    <?php $id = $d['id'] ?>
                     
-                    <!-- sementara manual karena ada bug di phpmyadmin -->
-                    <?php $localInfo = query("SELECT * FROM tayang_local WHERE title_id=13"); ?>
+                    <?php $id = $d['id'] ?>
+                    <?php $localInfo = query("SELECT * FROM tayang_local WHERE title_id=$id"); ?>
 
                     <a href="<?= $baseurl; ?>ui/detail.php?id=<?= $id ?>">
                         <div class="card">

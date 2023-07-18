@@ -178,7 +178,7 @@ function updateFilm($data, $fileName, $titleDBS)
 
     $resultFilm = updateQuery("UPDATE film SET title='$title', episode=$episode, film='$film', tipe='$type',aired='$aired', series=$series, franchise='$franchise', authors='$authors', artists='$artists',studios='$studios', cover='$cover' WHERE title='$titleDBS'");
 
-    if($resultFilm > 0)
+    if($resultFilm !== false)
     {
         $idFilm = query("SELECT id FROM film WHERE title='$titleDBS'");
         $idFilm = $idFilm[0]['id'];
@@ -186,18 +186,18 @@ function updateFilm($data, $fileName, $titleDBS)
         
         $result = updateQuery("UPDATE tayang_local SET title_id=$idFilm, channel='$hubChannel', tahun=$year,hari='$hubDay' WHERE title_id=$idFilm");
     
-        if($result > 0)
+        if($result !== false)
         {
             echo "<script>alert('Film berhasil diupdate')</script>";
     
             header("Location:" .$baseurl . "ui/user/admin.php");
             exit();
         }
-        echo "data tv local gagal di update!"; die;
+        echo "data tv local gagal di update! query salah"; die;
     }
     else 
     {
-        echo "data film gagal di update!";die;
+        echo "data film gagal di update! query salah";die;
     }
 
 }

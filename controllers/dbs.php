@@ -43,6 +43,10 @@ if(!function_exists('updateQuery'))
     {
         global $conn;
         $result = mysqli_query($conn, $query);
+        if(!$result)
+        {
+            return $result;
+        }
         $alert = mysqli_affected_rows($conn);
         return $alert;
     }
