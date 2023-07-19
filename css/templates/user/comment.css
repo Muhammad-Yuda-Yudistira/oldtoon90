@@ -12,6 +12,7 @@
 .comment-result {
     background-color: #eee;
     justify-content: center;
+    width: 100%;
 }
 .comment .profile, .comment-result .profile {
     margin-right: 30px;
@@ -25,9 +26,34 @@
     height: 140px;
     width: 600px;
 }
-.comment .btn {
+.comment .btn, .btn-reply {
     width: 100px;
     height: 30px;
     color: #47A992;
     font-weight: 600;
+    text-transform: capitalize;
+}
+.bar-bawah-comment {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.container-comment-reply {
+    width: 48%;
+}
+.comment.comment-reply {
+    width: 100%;
+    padding: 10px 25px;
+    margin-top: 20px;
+    display: none;
+}
+.comment.comment-reply #message {
+    width: 450px;
+}
+.btn-batal {
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #999;
+    text-transform: capitalize;
 }

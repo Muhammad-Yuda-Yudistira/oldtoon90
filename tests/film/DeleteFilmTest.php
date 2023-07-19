@@ -29,12 +29,6 @@ class DeleteFilmTest extends TestCase
         
         addFilm($data, $filename);
     }
-    // protected function tearDown(): void
-    // {
-    //     $title = 'sample film';
-
-    //     deleteFilm($title);
-    // }
     public function testDeleteFilmSuccessed()
     {
         $title = 'sample film';
