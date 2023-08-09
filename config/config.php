@@ -7,3 +7,9 @@ $baseurl = "http://localhost/2023/mei/oldtoon90/";
 $videoServerUrl = "http://localhost/2023/mei/dbs-film/";
 $useIndieServer = false;
 $videoServerIndie = "";
+
+// database 
+$db_hostname = "localhost";
+$db_username = "root";
+$db_password = "";
+$dbs = "oldtoon90";

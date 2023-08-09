@@ -1,7 +1,7 @@
 // Fungsi JavaScript untuk menampilkan form reply yang sesuai
 document.addEventListener('DOMContentLoaded', function() {
-    const replyButtons = document.querySelectorAll('.btn-reply');
-    const batalButtons = document.querySelectorAll('.btn-batal');
+    const replyButtons = document.querySelectorAll(`.btn-reply`);
+    const batalButtons = document.querySelectorAll('.btn-batal'); 
 
     replyButtons.forEach((button) => {
         button.addEventListener('click', function() {
@@ -16,10 +16,4 @@ document.addEventListener('DOMContentLoaded', function() {
             replyForm.style.display = replyForm.style.display == 'none' ? 'flex' : 'none';
         });
     });
-
-    // batalButtons.forEach(batal => {
-    //     batal.addEventListener(("click"), ()=> {
-    //         this.innerText = this.innerText == 'Balas' ? 'Batal' : 'Balas';
-    //     }   
-    // });
-});
+})

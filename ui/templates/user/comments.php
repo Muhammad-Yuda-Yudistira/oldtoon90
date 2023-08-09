@@ -22,6 +22,7 @@ $result = getComment();
 
 $idFilm = query("SELECT id FROM film WHERE title='$title'");
 $idFilm = $idFilm[0]['id'];
+
 ?>
 
 <?php if(isset($username)): ?>
@@ -69,7 +70,9 @@ $idFilm = $idFilm[0]['id'];
                             <li>
                                 <p style="color:#47A992;"><?= $comment['created_at'] ?></p>
                             </li>
-                            <button type="submit" class="btn-reply" name="reply" data-comment-id="<?= $comment['id'] ?>">balas</button>
+                            <?php if(isset($username)): ?>
+                                <button type="button" class="btn-reply" name="reply" data-comment-id="<?= $comment['id'] ?>">balas</button>
+                            <?php endif; ?>
                         </div>
                     </ul>
                     <div class="comment comment-reply" data-comment-id="<?= $comment['id'] ?>">
@@ -79,14 +82,20 @@ $idFilm = $idFilm[0]['id'];
                             </div>
                             <h5 style="color:#47A992;"><?= isset($username) ? $username : "Anonymous" ?></h5>
                         </div>
-                        <form action="" method="post">
+                        <form action="../controllers/user/comment/reply.php" method="post" class="form-reply">
                             <ul class="kolom-comment">
+                                <li>
+                                    <input type="hidden" name="from" value="<?= $username ?>">
+                                </li>
+                                <li>
+                                    <input type="hidden" name="to" value="<?= $comment['username'] ?>">
+                                </li>
                                 <li>
                                     <label for="message">Message : </label>
                                     <textarea name="message" id="message" cols="30" rows="10" required></textarea>
                                 </li>
                                 <input type="submit" value="balas" name="balas" class="btn">
-                                <a href="#" class="btn-batal">batal</a>
+                                <input type="button" value="batal" class="btn btn-batal">
                             </ul>
                         </form>
                     </div>

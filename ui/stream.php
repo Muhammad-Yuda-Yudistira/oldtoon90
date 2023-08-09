@@ -29,9 +29,7 @@ $urlSubtitle = $epsFilm['url_subtitle'];
     <p class="sub-title"><?= $title ?>, episode <?= $episode ?></p>
 
     <?php if($useIndieServer): ?>
-        <video src="<?= $videoServerUrl ?>" type="video/mp4" class="streaming" controls poster="<?= $baseurl . $cover ?>">
-            <track src="<?= $baseurl . $urlSubtitle; ?>" default />
-        </video>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/qsfISQIZt9A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <?php else: ?>
         <video src="<?= $videoServerUrl . $title . "/" . $urlVideo ?>" type="video/mp4" class="streaming" controls poster="<?= $baseurl . $cover ?>">
             <track src="<?= $baseurl . $urlSubtitle; ?>" default />

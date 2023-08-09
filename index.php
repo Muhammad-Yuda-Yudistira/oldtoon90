@@ -3,7 +3,7 @@ session_start();
 require "config/config.php";
 require "controllers/dbs.php";
 
-if($_COOKIE['remember'] == true)
+if(isset($_COOKIE['remember']) && $_COOKIE['remember'] == true)
 {
     $allUser = query("SELECT * FROM user");
     $key = $_COOKIE['key'];
