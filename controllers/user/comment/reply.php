@@ -1,5 +1,5 @@
 <?php
-require "./../../../models/user/comment/replyModel.php";
+require "../../../models/user/comment/replyModel.php";
 
 if(isset($_POST['balas']))
 {

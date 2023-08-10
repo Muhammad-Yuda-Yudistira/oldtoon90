@@ -4,16 +4,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const batalButtons = document.querySelectorAll('.btn-batal'); 
 
     replyButtons.forEach((button) => {
-        button.addEventListener('click', function() {
-            // Dapatkan data-comment-id dari tombol "balas" yang ditekan
-            const commentId = button.getAttribute('data-comment-id');
-
-            // Cari elemen form reply yang sesuai berdasarkan data-comment-id
-            const replyForm = document.querySelector(`.comment-reply[data-comment-id="${commentId}"]`);
-
-
-            // Tampilkan form reply jika sebelumnya disembunyikan, atau sembunyikan jika sebelumnya ditampilkan
-            replyForm.style.display = replyForm.style.display == 'none' ? 'flex' : 'none';
+        button.addEventListener('click', function(e) {
+            e.target.parentElement.parentElement.nextElementSibling.style.display = 'flex'
         });
     });
+
+    batalButtons.forEach((batal) => {
+        batal.addEventListener("click", (e)=>{
+            e.target.parentElement.parentElement.parentElement.style.display = "none";
+        })
+    })
+
 })
