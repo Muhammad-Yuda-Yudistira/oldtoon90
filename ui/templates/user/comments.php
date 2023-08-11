@@ -1,7 +1,8 @@
 <?php
-require_once "../models/comments_model.php";
+// require_once "../models/comments_model.php";
 require_once "../models/user/comment/replyModel.php";
 require_once "../models/user/usersModel.php";
+require_once "../controllers/user/comment/commentsController.php";
 
 
 if(isset($_SESSION['username']))
@@ -22,9 +23,14 @@ if(isset($_POST['send']))
     addComment($dataComment);
 }
 
-$result = getComment();
+// ambil jumlah pagenya
+$result = getCommentsPagination();
+$currentComment = $result['currentComment'];
+$totalPages = $result['totalPages'];
+$comments = $result['comments'];
+
 $replyComment = getReply();
-$users = getAllUser();
+$users = getUsers();
 
 $idFilm = query("SELECT id FROM film WHERE title='$title'");
 $idFilm = $idFilm[0]['id'];
@@ -56,99 +62,114 @@ $idFilm = $idFilm[0]['id'];
     </div>
 <?php endif; ?>
 
-<?php if($result !== "data tidak ada"): ?>
-    <?php foreach($result as $comment): ?>
-        <?php if($idFilm == $comment['title_id'] && $eps == $comment['episode']): ?>
-            <div class="comment-result">
-                <div class="comment-title">
-                    <div class="profile">
-                        <img src="<?= $baseurl . $comment['picture'] ?>">
-                    </div>
-                    <h5 style="color:#47A992;"><?= $comment['username'] ?></h5>
-                </div>
-                <div class="container-comment-reply">
-                    <ul class="kolom-comment">
-                        <li>
-                            <label for="message" style="color:#47A992;">Message : </label>
-                            <textarea name="message" id="message" cols="30" rows="10" readonly style="color:#333;font-size:1rem;padding:3px 6px;"><?= $comment['comment'] ?></textarea>
-                        </li>
-                        <div class="bar-bawah-comment">
-                            <li>
-                                <p style="color:#47A992;"><?= $comment['created_at'] ?></p>
-                            </li>
-                            <?php if(isset($username)): ?>
-                                <button type="button" class="btn-reply" name="reply" data-comment-id="<?= $comment['id'] ?>">balas</button>
-                            <?php endif; ?>
-                        </div>
-                    </ul>
-                    <?php foreach($replyComment as $reply): ?>
-                        <?php if($reply['user_comment_id'] == $comment['id']): ?>
-                            <div class="comment comment-reply" style="display:flex">
-                                <div class="comment-title">
-                                    <?php foreach($users as $user): ?>
-                                        <?php if($user['id'] == $reply['user_id']): ?>
-                                            <div class="profile">
-                                                <img src="<?= $baseurl . $user['picture'] ?>">
-                                            </div>
-                                            <h5 style="color:#47A992;"><?= $user['username'] ?></h5>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
+<?php if($comments !== "data tidak ada"): ?>
+    <div class="container-comments">
+        <?php foreach($comments as $comment): ?>
+            <?php if($idFilm == $comment['title_id'] && $eps == $comment['episode']): ?>
+                <div class="comment-result">
+                    <div class="comment-title">
+                        <?php foreach($users as $user): ?>
+                            <?php if($user['id'] == $comment['user_id']): ?>
+                                <div class="profile">
+                                    <img src="<?= $baseurl . $user['picture'] ?>">
                                 </div>
-                                <form action="../controllers/user/comment/reply.php" method="post" class="form-reply">
-                                    <ul class="kolom-comment">
-                                        <li>
-                                            <input type="hidden" name="from" value="<?= $userId ?>">
-                                        </li>
-                                        <li>
-                                            <input type="hidden" name="to" value="<?= $comment['id'] ?>">
-                                        </li>
-                                        <li>
-                                            <label for="message">Message : </label>
-                                            <textarea name="message" id="message" cols="30" rows="10" readonly><?= $reply['message'] ?></textarea>
-                                        </li>
-                                        <div class="bar-bawah-comment">
-                                            <li>
-                                                <p style="color:#47A992;"><?= $comment['created_at'] ?></p>
-                                            </li>
+                                <h5 style="color:#47A992;"><?= $user['username'] ?></h5>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="container-comment-reply">
+                        <ul class="kolom-comment">
+                            <li>
+                                <label for="message" style="color:#47A992;">Message : </label>
+                                <textarea name="message" id="message" cols="30" rows="10" readonly style="color:#333;font-size:1rem;padding:3px 6px;"><?= $comment['comment'] ?></textarea>
+                            </li>
+                            <div class="bar-bawah-comment">
+                                <li>
+                                    <p style="color:#47A992;"><?= $comment['created_at'] ?></p>
+                                </li>
+                                <?php if(isset($username)): ?>
+                                    <button type="button" class="btn-reply" name="reply" data-comment-id="<?= $comment['id'] ?>">balas</button>
+                                <?php endif; ?>
+                            </div>
+                        </ul>
+                        <div class="comment-box">
+                            <?php foreach($replyComment as $reply): ?>
+                                <?php if($reply['user_comment_id'] == $comment['id']): ?>
+                                    <h5 class="lipatan">Lihat balasan (1) &#10548;</h5>
+                                <?php endif; ?>
+                                <?php if($reply['user_comment_id'] == $comment['id']): ?>
+                                    <div class="comment comment-reply" style="display: flex;">
+                                        <div class="comment-title">
+                                            <?php foreach($users as $user): ?>
+                                                <?php if($user['id'] == $reply['user_id']): ?>
+                                                    <div class="profile">
+                                                        <img src="<?= $baseurl . $user['picture'] ?>">
+                                                    </div>
+                                                    <h5 style="color:#47A992;"><?= $user['username'] ?></h5>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
                                         </div>
-                                    </ul>
-                                </form>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                    <div class="comment comment-reply" data-comment-id="<?= $comment['id'] ?>">
-                        <div class="comment-title">
-                            <div class="profile">
-                                <img src="<?= isset($picture) ? $baseurl . $picture : $baseurl . "images/users/blank-profile.webp" ?>">
-                            </div>
-                            <h5 style="color:#47A992;"><?= isset($username) ? $username : "Anonymous" ?></h5>
+                                        <form action="../controllers/user/comment/reply.php" method="post" class="form-reply">
+                                            <ul class="kolom-comment">
+                                                <li>
+                                                    <input type="hidden" name="from" value="<?= $userId ?>">
+                                                </li>
+                                                <li>
+                                                    <input type="hidden" name="to" value="<?= $comment['id'] ?>">
+                                                </li>
+                                                <li>
+                                                    <label for="message">Message : </label>
+                                                    <textarea name="message" id="message" cols="30" rows="10" readonly><?= $reply['message'] ?></textarea>
+                                                </li>
+                                                <div class="bar-bawah-comment">
+                                                    <li>
+                                                        <p style="color:#47A992;"><?= $comment['created_at'] ?></p>
+                                                    </li>
+                                                </div>
+                                            </ul>
+                                        </form>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
-                        <form action="../controllers/user/comment/reply.php" method="post" class="form-reply">
-                            <ul class="kolom-comment">
-                                <li>
-                                    <input type="hidden" name="from" value="<?= $userId ?>">
-                                </li>
-                                <li>
-                                    <input type="hidden" name="to" value="<?= $comment['id'] ?>">
-                                </li>
-                                <li>
-                                    <label for="message">Message : </label>
-                                    <textarea name="message" id="message" cols="30" rows="10" required></textarea>
-                                </li>
-                                <input type="submit" value="kirim" name="balas" class="btn">
-                                <input type="button" value="batal" class="btn btn-batal">
-                            </ul>
-                        </form>
+                        <div class="comment comment-reply munculkan" data-comment-id="<?= $comment['id'] ?>">
+                            <div class="comment-title">
+                                <div class="profile">
+                                    <img src="<?= isset($picture) ? $baseurl . $picture : $baseurl . "images/users/blank-profile.webp" ?>">
+                                </div>
+                                <h5 style="color:#47A992;"><?= isset($username) ? $username : "Anonymous" ?></h5>
+                            </div>
+                            <form action="../controllers/user/comment/reply.php" method="post" class="form-reply">
+                                <ul class="kolom-comment">
+                                    <li>
+                                        <input type="hidden" name="from" value="<?= $userId ?>">
+                                    </li>
+                                    <li>
+                                        <input type="hidden" name="to" value="<?= $comment['id'] ?>">
+                                    </li>
+                                    <li>
+                                        <label for="message">Message : </label>
+                                        <textarea name="message" id="message" cols="30" rows="10" required></textarea>
+                                    </li>
+                                    <input type="submit" value="kirim" name="balas" class="btn">
+                                    <input type="button" value="batal" class="btn btn-batal">
+                                </ul>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php endif; ?>
-    <?php endforeach; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
     <div class="comment-paginate">
-                <a href="">&laquo;</a>
-                <a href="">1</a>
-                <a href="">2</a>
-                <a href="">3</a>
-                <a href="">&raquo;</a>
-            </div>
+        <?php if($_GET['currentComment'] > 1): ?>
+            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $_GET['currentComment'] - 1 ?>" class="pagination">&laquo;</a>
+        <?php endif; ?>
+        <?php for($i = 1; $i <= $totalPages; $i++): ?>
+            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $i ?>" class="pagination <?= $_GET['currentComment'] == $i ? 'active' : ''; ?>"><?= $i ?></a>
+        <?php endfor; ?>
+        <?php if($_GET['currentComment'] < $totalPages): ?>
+            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $_GET['currentComment'] + 1 ?>" class="pagination">&raquo;</a>
+        <?php endif; ?>
+    </div>
 <?php endif; ?>

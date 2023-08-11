@@ -26,6 +26,23 @@ if(!function_exists('query'))
     }
 }
 
+if(!function_exists('paginate'))
+{
+    function paginate($query)
+    {
+        global $conn;
+        $rows = [];
+    
+        $data = mysqli_query($conn, $query);
+
+        while($row =  mysqli_fetch_assoc($data)) 
+        {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+}
+
 if(!function_exists('addQuery'))
 {
     function addQuery($query)

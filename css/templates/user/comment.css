@@ -57,3 +57,16 @@
     color: #999;
     text-transform: capitalize;
 }
+.pagination {
+    text-decoration-line: none;
+}
+.pagination.active {
+    font-weight: bold;
+}
+.lipatan {
+    color: #7A3E3E;
+    cursor: pointer;
+    padding-left: 30px;
+    width: 130px;
+    box-sizing: content-box;
+}

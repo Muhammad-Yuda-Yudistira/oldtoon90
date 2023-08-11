@@ -1,19 +1,15 @@
 <?php
 require __DIR__ . "/../../controllers/dbs.php";
 
-function getAllUser()
+function getUsers()
 {
-    // $result = query("SELECT * FROM user");
-
-    // if($result > 0)
-    // {
-    //     return $result;
-    // }
-    // else 
-    // {
-    //     echo "Query salah!";
-    // }
-
-    $result = query("SELECT COUNT(*) AS total FROM user");
-    var_dump($result); die;
+    $users = query("SELECT * FROM user");
+    if($users > 0)
+    {
+        return $users;
+    }
+    else 
+    {
+        echo "query get users salah!";
+    }
 }
