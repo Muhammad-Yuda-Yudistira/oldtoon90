@@ -92,11 +92,22 @@ $idFilm = $idFilm[0]['id'];
                                 <?php endif; ?>
                             </div>
                         </ul>
-                        <div class="comment-box">
+
+                        <?php $sumReply = 0; ?>
+                        <?php foreach($replyComment as $reply): ?>
+                            <?php if($reply['user_comment_id'] == $comment['id']): ?>
+                                <?php $sumReply++ ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+
+                        <?php foreach($replyComment as $reply): ?>
+                            <?php if($reply['user_comment_id'] == $comment['id']): ?>
+                                <h5 class="lipatan">Lihat balasan (<?= $sumReply ?>) <span>&#x2935;</span></h5>
+                                <?php break; ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                        <div class="comment-box hidden" data-comment-id="<?= $comment['id'] ?>">
                             <?php foreach($replyComment as $reply): ?>
-                                <?php if($reply['user_comment_id'] == $comment['id']): ?>
-                                    <h5 class="lipatan">Lihat balasan (1) &#10548;</h5>
-                                <?php endif; ?>
                                 <?php if($reply['user_comment_id'] == $comment['id']): ?>
                                     <div class="comment comment-reply" style="display: flex;">
                                         <div class="comment-title">
@@ -152,7 +163,7 @@ $idFilm = $idFilm[0]['id'];
                                         <textarea name="message" id="message" cols="30" rows="10" required></textarea>
                                     </li>
                                     <input type="submit" value="kirim" name="balas" class="btn">
-                                    <input type="button" value="batal" class="btn btn-batal">
+                                    <input type="button" value="batal" class="btn btn-batal" data-comment-id="<?= $comment['id'] ?>">
                                 </ul>
                             </form>
                         </div>
@@ -162,14 +173,14 @@ $idFilm = $idFilm[0]['id'];
         <?php endforeach; ?>
     </div>
     <div class="comment-paginate">
-        <?php if($_GET['currentComment'] > 1): ?>
-            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $_GET['currentComment'] - 1 ?>" class="pagination">&laquo;</a>
+        <?php if($currentComment > 1): ?>
+            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $currentComment - 1 ?>" class="pagination">&laquo;</a>
         <?php endif; ?>
         <?php for($i = 1; $i <= $totalPages; $i++): ?>
-            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $i ?>" class="pagination <?= $_GET['currentComment'] == $i ? 'active' : ''; ?>"><?= $i ?></a>
+            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $i ?>" class="pagination <?= $currentComment == $i ? 'active' : ''; ?>"><?= $i ?></a>
         <?php endfor; ?>
-        <?php if($_GET['currentComment'] < $totalPages): ?>
-            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $_GET['currentComment'] + 1 ?>" class="pagination">&raquo;</a>
+        <?php if($currentComment < $totalPages): ?>
+            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $currentComment + 1 ?>" class="pagination">&raquo;</a>
         <?php endif; ?>
     </div>
 <?php endif; ?>

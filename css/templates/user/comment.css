@@ -1,3 +1,6 @@
+.comment-box.hidden {
+    display: none;
+}
 .comment, .comment-result {
     display: flex;
     background-color: #7A3E3E;
