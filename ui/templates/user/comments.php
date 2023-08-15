@@ -81,7 +81,7 @@ $idFilm = $idFilm[0]['id'];
                         <ul class="kolom-comment">
                             <li>
                                 <label for="message" style="color:#47A992;">Message : </label>
-                                <textarea name="message" id="message" cols="30" rows="10" readonly style="color:#333;font-size:1rem;padding:3px 6px;"><?= $comment['comment'] ?></textarea>
+                                <textarea name="message" id="message" cols="30" rows="10" readonly><?= $comment['comment'] ?></textarea>
                             </li>
                             <div class="bar-bawah-comment">
                                 <li>
@@ -102,7 +102,7 @@ $idFilm = $idFilm[0]['id'];
 
                         <?php foreach($replyComment as $reply): ?>
                             <?php if($reply['user_comment_id'] == $comment['id']): ?>
-                                <h5 class="lipatan">Lihat balasan (<?= $sumReply ?>) <span>&#x2935;</span></h5>
+                                <h5 class="lipatan">Lihat balasan <span>(<?= $sumReply ?>)</span> <span>&#x2934;</span></h5>
                                 <?php break; ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
