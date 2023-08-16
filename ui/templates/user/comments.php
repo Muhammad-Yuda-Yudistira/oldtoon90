@@ -78,7 +78,7 @@ $idFilm = $idFilm[0]['id'];
                         <?php endforeach; ?>
                     </div>
                     <div class="container-comment-reply">
-                        <ul class="kolom-comment">
+                        <ul class="kolom-comment" data-comment-id="<?= $comment['id'] ?>">
                             <li>
                                 <label for="message" style="color:#47A992;">Message : </label>
                                 <textarea name="message" id="message" cols="30" rows="10" readonly><?= $comment['comment'] ?></textarea>
@@ -102,7 +102,7 @@ $idFilm = $idFilm[0]['id'];
 
                         <?php foreach($replyComment as $reply): ?>
                             <?php if($reply['user_comment_id'] == $comment['id']): ?>
-                                <h5 class="lipatan">Lihat balasan <span>(<?= $sumReply ?>)</span> <span>&#x2934;</span></h5>
+                                <h5 class="lipatan" data-comment-id="<?= $comment['id'] ?>">Lihat balasan<span> (<?= $sumReply ?>)</span> <span>&#x2934;</span></h5>
                                 <?php break; ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -174,13 +174,13 @@ $idFilm = $idFilm[0]['id'];
     </div>
     <div class="comment-paginate">
         <?php if($currentComment > 1): ?>
-            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $currentComment - 1 ?>" class="pagination">&laquo;</a>
+            <a href="<?= $baseurl . 'controllers/ajax/comment-paginate.php?currentComment=' . ($currentComment - 1) ?>" class="pagination">&laquo;</a>
         <?php endif; ?>
         <?php for($i = 1; $i <= $totalPages; $i++): ?>
-            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $i ?>" class="pagination <?= $currentComment == $i ? 'active' : ''; ?>"><?= $i ?></a>
+            <a href="<?= $baseurl . 'controllers/ajax/comment-paginate.php?currentComment=' . $i ?>" class="pagination <?= $currentComment == $i ? 'active' : ''; ?>"><?= $i ?></a>
         <?php endfor; ?>
         <?php if($currentComment < $totalPages): ?>
-            <a href="<?= $baseurl . 'ui/stream.php?title=' . $_GET['title'] . '&eps=' . $_GET['eps'] . '&currentComment=' . $currentComment + 1 ?>" class="pagination">&raquo;</a>
+            <a href="<?= $baseurl . 'controllers/ajax/comment-paginate.php?currentComment=' . ($currentComment - 1) ?>" class="pagination">&raquo;</a>
         <?php endif; ?>
     </div>
 <?php endif; ?>

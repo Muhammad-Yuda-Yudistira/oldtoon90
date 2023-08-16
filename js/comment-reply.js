@@ -16,26 +16,28 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             e.target.nextElementSibling.classList.toggle("hidden")
 
-            const textNode = e.target.firstChild
-            if(textNode && textNode.nodeType === Node.TEXT_NODE)
+            let textNode = e.target.firstChild
+            if(textNode !== null)
             {
-                if(textNode.textContent == "Lihat balasan")
+                if(textNode && textNode.nodeType === Node.TEXT_NODE)
                 {
-                    textNode.textContent = "Sembunyikan balasan"
-                }
-                else 
-                {
-                    textNode.textContent = "Lihat balasan"
+                    if(textNode.textContent == "Lihat balasan")
+                    {
+                        textNode.textContent = "Sembunyikan balasan"
+                    }
+                    else 
+                    {
+                        textNode.textContent = "Lihat balasan"
+                    }
                 }
             }
-            console.log(textNode)
         }
         if(e.target.className == 'btn-reply')
         {
             const commentId = e.target.dataset.commentId
             const commentBox = document.querySelector(`.comment-box[data-comment-id="${commentId}"]`)
             const commentReply = document.querySelector(`.comment-reply[data-comment-id="${commentId}"]`)
-            console.log(commentReply)
+            const lipatan = document.querySelector(`.lipatan[data-comment-id="${commentId}"]`)
 
             e.target.style.backgroundColor = "inherit"
             e.target.style.color = "#aaa"
@@ -49,7 +51,20 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 e.target.parentElement.parentElement.nextElementSibling.nextElementSibling.style.display = 'flex'
             }
+
             commentReply.scrollIntoView({behavior: "smooth"})
+
+            let textLipatan = lipatan.firstChild
+            if(textLipatan !== null)
+            {
+                if(textLipatan && textLipatan.nodeType === Node.TEXT_NODE)
+                {
+                    if(textLipatan.textContent == "Lihat balasan")
+                    {
+                        textLipatan.textContent = "Sembunyikan balasan"
+                    }
+                }
+            }
         }
         if(e.target.classList.contains('btn-batal'))
         {
@@ -58,12 +73,30 @@ document.addEventListener('DOMContentLoaded', function() {
             const commentBox = document.querySelector(`.comment-box[data-comment-id="${commentId}"]`)
             const commentReply = document.querySelector(`.comment-reply[data-comment-id="${commentId}"]`)
             const btnReply = document.querySelector(`.btn-reply[data-comment-id="${commentId}"]`)
+            const lipatan = document.querySelector(`.lipatan[data-comment-id="${commentId}"]`)
+            const kolomComment = document.querySelector(`.kolom-comment[data-comment-id="${commentId}"]`)
 
-            commentBox.classList.add("hidden")
+            
+            kolomComment.scrollIntoView({behavior: "smooth"})
+            setTimeout(function(){
+                commentBox.classList.add("hidden")
+            }, 500)
             commentReply.style.display = "none"
             btnReply.style.backgroundColor = "revert-layer"
             btnReply.style.color = "revert-layer"
             btnReply.style.border = "revert-layer"
+
+            let textLipatan = lipatan.firstChild
+            if(textLipatan !== null)
+            {
+                if(textLipatan && textLipatan.nodeType === Node.TEXT_NODE)
+                {
+                    if(textLipatan.textContent == "Sembunyikan balasan")
+                    {
+                        textLipatan.textContent = "Lihat balasan"
+                    }
+                }
+            }
         }
     })
 })
