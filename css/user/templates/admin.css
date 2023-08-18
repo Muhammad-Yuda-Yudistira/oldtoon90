@@ -8,11 +8,13 @@ html {
     margin: 0;
     padding: 0;
 }
+/* default class for admin page */
 .container-admin {
     max-width: 100vw;
     min-height: 100vh;
     background-color: #ddd;
 }
+/* default class for admin page */
 .content-admin {
     text-align: center;
     margin-left: 20%;

@@ -1,6 +1,11 @@
 <?php
 require __DIR__ . "/../controllers/dbs.php";
 
+function getIdFilm($title)
+{
+    $idFilm = query("SELECT id FROM film WHERE title='$title'");
+    return $idFilm[0]['id'];
+}
 
 function deleteFilm($title)
 {

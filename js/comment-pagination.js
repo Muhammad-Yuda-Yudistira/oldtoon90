@@ -1,13 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const commentPagination = document.querySelectorAll('.comment-paginate .pagination')
-    const containerComment = document.querySelector('.container-comments')
+    setupEventListeners()
+})
 
+function setupEventListeners()
+{
+    const commentPagination = document.querySelectorAll('.comment-paginate .pagination')
+    const containerAllComment = document.querySelector('.container-all-comment')
+    
     commentPagination.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault()
-
+    
             const targetUrl = this.getAttribute('href')
-
+    
             fetch(targetUrl)
                 .then(response => {
                     if(!response.ok) {
@@ -16,12 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.text()
                 })
                 .then(data => {
-                    console.log(data)
-                    containerComment.innerHTML = data
+                    // cara 1
+                    containerAllComment.innerHTML = data
+
+                    // cara 2
+                    // containerAllComment.innerHTML = ""
+                    // containerAllComment.insertAdjacentHTML('beforeend', data)
+
+                    setupEventListeners()
                 })
                 .catch(error => {
                     console.error('Terjadi kesalahan:', error)
                 })
         })
-    });
-})
+    })
+}

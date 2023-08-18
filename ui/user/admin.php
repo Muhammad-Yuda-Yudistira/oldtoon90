@@ -51,8 +51,10 @@ $film = query("SELECT * FROM film");
                 <?php $i = 1; ?>
                 <?php foreach($film as $f): ?>
                     <tr>
-                        <td><?= $i++ ?></td>
-                        <td><?= $f['title'] ?></td>
+                        <th><?= $i++ ?></th>
+                        <td>
+                            <a href="<?= $baseurl . 'controllers/admin/film/filmController.php?title=' . $f['title'] ?>"><?= $f['title'] ?></a>
+                        </td>
                         <td><?= $f['film'] ?></td>
                         <td>
                             <a href="<?= $baseurl ?>ui/user/contents/episode.php?title=<?= $f['title']; ?>" class="btn-admin">Add</a>
