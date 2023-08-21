@@ -7,6 +7,26 @@ function getIdFilm($title)
     return $idFilm[0]['id'];
 }
 
+function getFilm($title)
+{
+    $film = query(
+        "SELECT film.*, tayang_local.channel, tayang_local.tahun, tayang_local.hari, COUNT(episode_film.episode) AS jumlah_episode
+        FROM film 
+        JOIN tayang_local ON film.id = tayang_local.title_id 
+        JOIN episode_film ON film.id = episode_film.title_id 
+        WHERE film.title='$title'"
+    ); 
+    return $film[0];
+}
+
+// deprecated
+function getTayangLocal($title)
+{
+    $titleId = getIdFilm($title);
+    $tayangLocal = query("SELECT * FROM tayang_local WHERE title_id=$titleId");
+    return $tayangLocal;
+}
+
 function deleteFilm($title)
 {
     global $conn;

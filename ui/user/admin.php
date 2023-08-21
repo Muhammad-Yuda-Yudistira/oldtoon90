@@ -46,20 +46,25 @@ $film = query("SELECT * FROM film");
                     <th>No</th>
                     <th>Title</th>
                     <th>Film</th>
-                    <th>Action</th>
+                    <th>Film Action</th>
+                    <th>Episode Action</th>
                 </tr>
                 <?php $i = 1; ?>
                 <?php foreach($film as $f): ?>
                     <tr>
                         <th><?= $i++ ?></th>
                         <td>
-                            <a href="<?= $baseurl . 'controllers/admin/film/filmController.php?title=' . $f['title'] ?>"><?= $f['title'] ?></a>
+                            <a href="<?= $baseurl . 'ui\admin\film\view.php?title=' . $f['title'] ?>"><?= $f['title'] ?></a>
                         </td>
                         <td><?= $f['film'] ?></td>
                         <td>
-                            <a href="<?= $baseurl ?>ui/user/contents/episode.php?title=<?= $f['title']; ?>" class="btn-admin">Add</a>
-                            <a href="<?= $baseurl ?>ui/user/contents/update-film.php?title=<?= $f['title']; ?>" class="btn-admin" style="">Edit</a>
-                            <a href="<?= $baseurl ?>controllers/film/delete-film.php?title=<?= $f['title']; ?>" class="btn-admin">Hapus</a>
+                            <a href="<?= $baseurl ?>ui/user/contents/update-film.php?title=<?= $f['title']; ?>" class="btn-admin" id="edit" style="">Edit</a>
+                            <a href="<?= $baseurl ?>controllers/film/delete-film.php?title=<?= $f['title']; ?>" class="btn-admin" id="delete" onclick="return confirm('Anda yakin ingin menghapus film ini?')">Delete</a>
+                        </td>
+                        <td>
+                            <a href="<?= $baseurl ?>ui/user/contents/episode.php?title=<?= $f['title']; ?>" class="btn-admin" id="add">Add</a>
+                            <a href="<?= $baseurl ?>ui\admin\film\edit.php?title=<?= $f['title']; ?>" class="btn-admin" id="edit">Edit</a>
+                            <a href="<?= $baseurl ?>ui\admin\film\delete.php?title=<?= $f['title']; ?>" class="btn-admin" id="delete">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
