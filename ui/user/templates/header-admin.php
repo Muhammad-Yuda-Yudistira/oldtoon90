@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<?= $baseurl ?>css/user/episode.css">
     <link rel="stylesheet" href="<?= $baseurl ?>css/user/film.css">
     <link rel="stylesheet" href="<?= $baseurl ?>css/admin/film/view.css">
+    <link rel="stylesheet" href="<?= $baseurl ?>css/admin/film/edit.css">
     <link rel="stylesheet" href="<?= $baseurl ?>css/user/image.css">
     <link rel="stylesheet" href="<?= $baseurl ?>css/user/comic.css">
 </head>

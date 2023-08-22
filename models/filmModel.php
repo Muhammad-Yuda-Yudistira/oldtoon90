@@ -87,3 +87,4 @@ function deleteCover($title)
 
     return $cover;
 }
+

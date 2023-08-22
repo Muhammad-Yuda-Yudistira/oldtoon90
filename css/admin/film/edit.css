@@ -1,0 +1,38 @@
+.edit-container.content-admin {
+    flex-direction: row;
+    justify-content: start;
+}
+.head-title {
+    font-size: 1.6rem;
+    padding-bottom: 30px;
+}
+.head-title hr {
+    margin-top: 10px;
+}
+.status-eps li {
+    padding-bottom: 5px;
+}
+.status-eps input {
+    color: #222;
+}
+.status-eps hr {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.film-status.edit-status {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 30px auto;
+}
+.box-general {
+    padding-right: 80px;
+}
+.btn-eps {
+    margin-top: 10px;
+    width: 80px;
+    color: #333;
+    font-weight: 600;
+}
+.date {
+    color: #666;
+}
