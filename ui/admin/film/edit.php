@@ -11,7 +11,13 @@ $episodes = filmEpisode($title);
 
 if(isset($_POST['update'])) 
 {
-    updateFilesFilm($_FILES);
+    $oldNameFiles = [
+        'oldVideo' => $_POST['old_video'],
+        'oldSubtitle' => $_POST['old_subtitle']
+    ];
+
+    updateFile($_FILES, $_GET['title'], $oldNameFiles);
+    echo "succes file"; die;
     updateEpsFilm($_POST);
 }
 ?>
@@ -27,11 +33,12 @@ if(isset($_POST['update']))
             <div class="box-general">
                 <li class="head-title"><?= $film['title'] ?> (<?= $film['aired'] ?>)<hr></li>
                 <li><img src="<?= $baseurl . $film['cover'] ?>" alt=""></li>
+                <img src="<?= $baseurl ?>images/Splash.png" alt="Spalsh 3D" width="400">
             </div>
 
             <div class="box-specific">
-                <form action="" method="post" enctype="multipart/form-data" class="status-eps">
-                    <?php foreach($episodes as $eps): ?>
+                <?php foreach($episodes as $eps): ?>
+                    <form action="" method="post" enctype="multipart/form-data" class="status-eps">
                         <li>
                             <input type="hidden" value="<?= $eps['nama'] ?>" name="old_name">
                         </li>
@@ -45,14 +52,14 @@ if(isset($_POST['update']))
                         </li>
                         <li>
                             <label for="video">Video: </label>
-                            <input type="file" name="video" id="video">
+                            <input type="file" name="video" id="video" accept=".mp4, .webm">
 
                             <input type="hidden" name="old_video" value="<?= $eps['url_video'] ?>" id="video">
                             <p>Existing Video: <?= $eps['url_video'] ?></p>
                         </li>
                         <li>
                             <label for="subtitle">Subtitle: </label>
-                            <input type="file" name="subtitle" id="subtitle">
+                            <input type="file" name="subtitle" id="subtitle" accept=".vtt, .srt">
 
                             <input type="hidden" name="old_subtitle" value="<?= $eps['url_subtitle'] ?>" id="subtitle">
                             <p>Existing subtitle: <?= $eps['url_subtitle'] ?></p>
@@ -62,8 +69,8 @@ if(isset($_POST['update']))
                         </li>
                         <button type="submit" name="update" class="btn-eps">Update</button>
                         <hr>
+                    </form>
                     <?php endforeach ?>
-                </form>
             </div>
 
         </ul>
