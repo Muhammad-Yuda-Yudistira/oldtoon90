@@ -1,8 +1,8 @@
 <?php 
 session_start();
-require "../../../config/config.php";
-require "../../../controllers/dbs.php";
-require "../../../controllers/film.php";
+require __DIR__ . "/../../../config/config.php";
+require __DIR__ . "/../../../controllers/dbs.php";
+require __DIR__ . "/../../../controllers/film/episodeController.php";
 
 $admin = $_SESSION['role'];
 
@@ -19,21 +19,22 @@ $eps = query("SELECT episode FROM episode_film WHERE title_id=$titleId");
 <?php 
 if(isset($_POST["upload"]))
 {
-    $data = $_FILES;
+    $files = $_FILES;
     $epsData = [
         'name' => $_POST["name"],
         'episode' => $_POST["episode"]
     ];
 
-    $fileName = uploadEpisode($title, $data);
+    $fileName = insertEpisode($files, $title);
+    var_dump($fileName); die; // lanjut disini
     addEpisode($fileName, $title, $epsData);
 }
 ?>
 
 <?php if(isset($_GET['title'])): ?>
-    <?php require_once "../templates/header-admin.php"; ?>
+    <?php include __DIR__ . "/../../user/templates/header-admin.php"; ?>
 
-    <?php require_once "../templates/nav-admin.php"; ?>
+    <?php include __DIR__ . "/../../user/templates/nav-admin.php"; ?>
 
         <?php if($film[0]['title'] == $_GET['title']): ?>
 
@@ -90,7 +91,7 @@ if(isset($_POST["upload"]))
         
         <?php endif; ?>
 
-    <?php require_once "../../templates/footer.php"; ?>
+    <?php include __DIR__ . "/../../user/templates/footer.php"; ?>
 <?php endif; ?>
 
 <?php else: ?>

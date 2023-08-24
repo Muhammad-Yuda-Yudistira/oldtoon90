@@ -16,9 +16,8 @@ if(isset($_POST['update']))
         'oldSubtitle' => $_POST['old_subtitle']
     ];
 
-    updateFile($_FILES, $_GET['title'], $oldNameFiles);
-    echo "succes file"; die;
-    updateEpsFilm($_POST);
+    $nameFiles = updateFile($_FILES, $_GET['title'], $oldNameFiles);
+    updateEpsFilm($_POST, $nameFiles);
 }
 ?>
 

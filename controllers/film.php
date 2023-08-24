@@ -54,24 +54,25 @@ function updateCoverFilm($data, $existingCover)
     return $newFileName;
 }
 
-function uploadEpisode($title, $data)
-{
-    $nameVideo = $data['video']['name'];
-    $tmpNameVideo = $data['video']['tmp_name'];
+// deprcated
+// function uploadEpisode($title, $data)
+// {
+//     $nameVideo = $data['video']['name'];
+//     $tmpNameVideo = $data['video']['tmp_name'];
 
-    $nameSubtitle = $data['subtitle']['name'];
-    $tmpNameSubtitle = $data['subtitle']['tmp_name'];
+//     $nameSubtitle = $data['subtitle']['name'];
+//     $tmpNameSubtitle = $data['subtitle']['tmp_name'];
 
-    move_uploaded_file($tmpNameVideo, '../../../../dbs-film/' . $title . "/" . $nameVideo);
-    move_uploaded_file($tmpNameSubtitle, '../../../videos/' . $nameSubtitle);
+//     move_uploaded_file($tmpNameVideo, '../../../../dbs-film/' . $title . "/" . $nameVideo);
+//     move_uploaded_file($tmpNameSubtitle, '../../../videos/' . $nameSubtitle);
 
-    $names = [
-        "nameVideo" => $nameVideo,
-        "nameSubtitle" => $nameSubtitle,
-    ];
+//     $names = [
+//         "nameVideo" => $nameVideo,
+//         "nameSubtitle" => $nameSubtitle,
+//     ];
 
-    return $names;
-}
+//     return $names;
+// }
 
 function addFilm($data, $fileName)
 {
