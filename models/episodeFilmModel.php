@@ -1,7 +1,15 @@
 <?php
 require __DIR__ . "/../config/config.php";
+require __DIR__ . "/../controllers/connection.php";
 
 use PHPUnit\Runner\Filter\NameFilterIterator;
+
+function getTitleFilmId($title)
+{
+    $titleId = query("SELECT id FROM film WHERE title='$title'");
+    $titleId = $titleId[0]['id'];
+    return $titleId;
+}
 
 function getFilmEpisode($titleId)
 {
@@ -30,6 +38,28 @@ function insertFileTo($nameFile, $tmpNameFile, $title, $typeFile)
 
         return $nameFile;
     }
+}
+
+function insertEpsToDbs($data, $fileNames, $title)
+{
+    global $conn, $baseurl;
+
+    $name = $data['name'];
+    $episode = $data['episode'];
+    $nameFileVideo = $fileNames['nameFileVideo'];
+    $nameFileSubtitle = $fileNames['nameFileSubtitle'];
+    
+    $titleFilmId = getTitleFilmId($title);
+
+    mysqli_escape_string($conn, $name);
+    mysqli_escape_string($conn, $nameFileVideo);
+    mysqli_escape_string($conn, $nameFileSubtitle);
+    $episode = (int)$episode;
+    $titleFilmId = (int)$titleFilmId;
+
+    $result = addQuery("INSERT INTO episode_film VALUES(null, $titleFilmId, '$name', '$episode', '$nameFileVideo', '$nameFileSubtitle', CURRENT_TIMESTAMP)");
+
+    header('Location: ' . $baseurl . 'ui/user/admin.php');
 }
 
 function uploadFileTo($nameFile, $tmpNameFile, $title, $typeFile, $oldNameFile)
@@ -91,4 +121,26 @@ function putFilmEpisode($data, $files=['noData' => NULL])
     $result = updateQuery("UPDATE episode_film SET nama='$name', episode=$episode, url_video='$video', url_subtitle='$subtitle', launched_at=NOW() WHERE nama='$oldName'");
 
     header('Location: ' . $baseurl . 'ui/user/admin.php');
+}
+
+function delEpisodeFilm($urlFile, $type, $title=null)
+{
+    if($type == 'video')
+    {
+        $pathFolderFile = __DIR__ . '/../../dbs-film/' . $title . '/';
+
+        if(file_exists($pathFolderFile . $urlFile))
+        {
+            unlink($pathFolderFile . $urlFile);
+        }
+    }
+    else if($type == 'subtitle')
+    {
+        $pathFolderFile = __DIR__ . '/../';
+
+        if(file_exists($pathFolderFile . $urlFile))
+        {
+            unlink($pathFolderFile . $urlFile);
+        }
+    }
 }

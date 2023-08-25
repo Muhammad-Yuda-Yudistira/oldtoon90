@@ -4,8 +4,10 @@ require __DIR__ . "/../../../config/config.php";
 require __DIR__ . "/../../../controllers/dbs.php";
 require __DIR__ . "/../../../controllers/film/episodeController.php";
 
-$admin = $_SESSION['role'];
+ini_set('upload_max_filesize', '1G');
+ini_set('post_max_size', '2G');
 
+$admin = $_SESSION['role'];
 $title = $_GET['title'];
 
 
@@ -26,8 +28,7 @@ if(isset($_POST["upload"]))
     ];
 
     $fileName = insertEpisode($files, $title);
-    var_dump($fileName); die; // lanjut disini
-    addEpisode($fileName, $title, $epsData);
+    insertDataEps($epsData, $fileName, $title);
 }
 ?>
 
@@ -91,7 +92,7 @@ if(isset($_POST["upload"]))
         
         <?php endif; ?>
 
-    <?php include __DIR__ . "/../../user/templates/footer.php"; ?>
+    <?php include __DIR__ . "/../../templates/footer.php"; ?>
 <?php endif; ?>
 
 <?php else: ?>

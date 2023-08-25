@@ -20,6 +20,11 @@ function updateFile($data, $title, $oldNameFiles)
     ];
 }
 
+function insertDataEps($data, $fileNames, $title)
+{
+    insertEpsToDbs($data, $fileNames, $title);
+}
+
 function updateEpsFilm($data, $files)
 {
     if($files['nameFileSubtitle'] and $files['nameFileVideo'])
@@ -45,6 +50,12 @@ function insertEpisode($files, $title)
         'nameFileSubtitle' => $nameFileSubtitle,
         'nameFileVideo' => $nameFileVideo
     ];
+}
+
+function deleteFiles($data, $title)
+{
+    delEpisodeFilm($data['url_video'], 'video', $title);
+    delEpisodeFilm($data['url_subtitle'], 'subtitle');
 }
 
 

@@ -1,0 +1,10 @@
+.list-eps, .list-eps th, .list-eps td {
+    border: 3px solid pink;
+}
+.list-eps {
+    border-color: palevioletred;
+    border-collapse: collapse;
+}
+.list-eps th, .list-eps td {
+    padding: 5px 10px;
+}

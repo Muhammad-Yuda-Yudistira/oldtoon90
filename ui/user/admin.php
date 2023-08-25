@@ -62,9 +62,9 @@ $film = query("SELECT * FROM film");
                             <a href="<?= $baseurl ?>controllers/film/delete-film.php?title=<?= $f['title']; ?>" class="btn-admin" id="delete" onclick="return confirm('Anda yakin ingin menghapus film ini?')">Delete</a>
                         </td>
                         <td>
+                            <a href="<?= $baseurl ?>ui\admin\film\viewEpsFilm.php?title=<?= $f['title']; ?>" class="btn-admin" id="view">View</a>
                             <a href="<?= $baseurl ?>ui/admin/film/addEpsFilm.php?title=<?= $f['title']; ?>" class="btn-admin" id="add">Add</a>
                             <a href="<?= $baseurl ?>ui\admin\film\edit.php?title=<?= $f['title']; ?>" class="btn-admin" id="edit">Edit</a>
-                            <a href="<?= $baseurl ?>ui\admin\film\delete.php?title=<?= $f['title']; ?>" class="btn-admin" id="delete">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
