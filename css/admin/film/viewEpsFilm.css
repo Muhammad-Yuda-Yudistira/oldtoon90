@@ -8,3 +8,9 @@
 .list-eps th, .list-eps td {
     padding: 5px 10px;
 }
+.alert {
+    display: block;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    background-color: teal;
+}

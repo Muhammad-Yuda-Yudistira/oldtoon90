@@ -138,9 +138,34 @@ function delEpisodeFilm($urlFile, $type, $title=null)
     {
         $pathFolderFile = __DIR__ . '/../';
 
-        if(file_exists($pathFolderFile . $urlFile))
+        if(!empty($urlFile))
         {
-            unlink($pathFolderFile . $urlFile);
+            if(file_exists($pathFolderFile . $urlFile))
+            {
+                unlink($pathFolderFile . $urlFile);
+                return "File deleted succesfully!";
+            }
+            else
+            {
+                return "File does not exist!";
+            }
         }
+        else 
+        {
+            return "Empty file name!";
+        }
+    }
+}
+
+function delDataEpisode($epsId)
+{
+    $result = deleteQuery("DELETE FROM episode_film WHERE id=$epsId");
+    if($result > 0)
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
     }
 }

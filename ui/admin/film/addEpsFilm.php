@@ -1,11 +1,12 @@
 <?php 
 session_start();
+ini_set('upload_max_filesize', '1G');
+ini_set('post_max_size', '2G');
+
 require __DIR__ . "/../../../config/config.php";
 require __DIR__ . "/../../../controllers/dbs.php";
 require __DIR__ . "/../../../controllers/film/episodeController.php";
 
-ini_set('upload_max_filesize', '1G');
-ini_set('post_max_size', '2G');
 
 $admin = $_SESSION['role'];
 $title = $_GET['title'];

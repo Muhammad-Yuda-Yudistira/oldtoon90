@@ -11,8 +11,13 @@ $episodes = filmEpisode($title);
 
 if(isset($_POST['del'])) 
 {
-    deleteFiles($_POST, $title); //tinggal di cek jalan ga?
-    deleteEpsFilm($_GET['id']);
+    deleteFiles($_POST, $title); 
+    delDataEpsFilm($_GET['id']);
+}
+
+if(isset($_COOKIE['message']))
+{
+    $message = 'Data deleted succesfully!';
 }
 ?>
 
@@ -31,6 +36,11 @@ if(isset($_POST['del']))
             </div>
 
             <div class="box-specific">
+
+            <?php if(isset($message) and isset($_COOKIE['message'])): ?>
+                <span class="alert"><?= $message ?></span>
+            <?php endif; ?>
+
                 <table class="list-eps">
                     <tr>
                         <th>No</th>

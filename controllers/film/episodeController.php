@@ -54,10 +54,21 @@ function insertEpisode($files, $title)
 
 function deleteFiles($data, $title)
 {
-    delEpisodeFilm($data['url_video'], 'video', $title);
-    delEpisodeFilm($data['url_subtitle'], 'subtitle');
+    $result1 = delEpisodeFilm($data['video'], 'video', $title);
+    $result2 = delEpisodeFilm($data['subtitle'], 'subtitle');
 }
 
+function delDataEpsFilm($epsId)
+{
+    $response = delDataEpisode($epsId);
+    if($response)
+    {
+        $expiry = time() + 5;
+        setcookie('message', 'Succes', $expiry, '/');
+
+        header('Location:' . $_SERVER['HTTP_REFERER']);
+    }
+}
 
 
 // second functional
