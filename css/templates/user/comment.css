@@ -86,3 +86,7 @@ textarea#message {
 .kolom-comment {
     scroll-margin: var(--nav-high);
 }
+.comment-empty {
+    height: 300px;
+    line-height: 300px;
+}

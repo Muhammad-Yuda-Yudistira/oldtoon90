@@ -46,7 +46,7 @@ if(isset($_COOKIE['message']))
                         <th>No</th>
                         <th>Name</th>
                         <th>Episode</th>
-                        <th>launched_at</th>
+                        <th>Action</th>
                     </tr>
 
                     <?php 

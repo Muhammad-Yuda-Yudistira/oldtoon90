@@ -1,10 +1,18 @@
 <?php
-// require_once "../models/comments_model.php";
+require_once "../models/comments_model.php";
 require_once "../models/user/comment/replyModel.php";
 require_once "../models/user/usersModel.php";
 require_once "../controllers/user/comment/commentsController.php";
 require_once "../controllers/film/filmController.php";
 
+
+if(isset($_SESSION['username']))
+{
+    $username = $_SESSION['username'];
+    $user = query("SELECT id, picture FROM user WHERE username='$username'");
+    $userId = $user[0]['id'];
+    $picture = $user[0]['picture'];
+}
 
 if(isset($_POST['send']))
 {
@@ -14,14 +22,6 @@ if(isset($_POST['send']))
     $dataComment['eps'] = $_GET['eps'];
     
     addComment($dataComment);
-}
-
-if(isset($_SESSION['username']))
-{
-    $username = $_SESSION['username'];
-    $user = query("SELECT id, picture FROM user WHERE username='$username'");
-    $userId = $user[0]['id'];
-    $picture = $user[0]['picture'];
 }
 
 
@@ -62,7 +62,7 @@ $comments = $result['comments'];
     </div>
 <?php endif; ?>
 
-<?php if($comments !== "data tidak ada"): ?>
+<?php if(!empty($comments)): ?>
     <div class="container-all-comment">
         <div class="container-comments">
             <?php foreach($comments as $comment): ?>
@@ -185,4 +185,7 @@ $comments = $result['comments'];
             <?php endif; ?>
         </div>
     </div>
-<?php endif; ?>
+    <?php else: ?>
+        <h1 class="comment-empty">Comment not found!</h1>
+    <?php endif; ?>
+

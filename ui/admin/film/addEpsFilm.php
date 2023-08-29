@@ -1,7 +1,9 @@
 <?php 
 session_start();
-ini_set('upload_max_filesize', '1G');
-ini_set('post_max_size', '2G');
+
+// tidak berfungsi mungkin di cegah server
+// ini_set('upload_max_filesize', '1G');
+// ini_set('post_max_size', '2G');
 
 require __DIR__ . "/../../../config/config.php";
 require __DIR__ . "/../../../controllers/dbs.php";

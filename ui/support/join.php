@@ -37,7 +37,7 @@ $contacts = [
 <?php require "../templates/header.php" ?>
 <?php require "../templates/nav.php" ?>
    
-<div class="container">
+<div class="container container-join">
     <!-- role yang dibutuhkan -->
     <dl class="space role-list">
         <h3 class="title">role yang dibutuhkan untuk pengembangan website!</h3>

@@ -37,6 +37,10 @@ if(isset($_POST['update']))
 
             <div class="box-specific">
                 <?php foreach($episodes as $eps): ?>
+                    <?php 
+                        $dateTime = new DateTime($eps['launched_at']);
+                        $formattedDate = $dateTime->format('l, d M Y. H:i:s');
+                    ?>
                     <form action="" method="post" enctype="multipart/form-data" class="status-eps">
                         <li>
                             <input type="hidden" value="<?= $eps['nama'] ?>" name="old_name">
@@ -54,17 +58,17 @@ if(isset($_POST['update']))
                             <input type="file" name="video" id="video" accept=".mp4, .webm">
 
                             <input type="hidden" name="old_video" value="<?= $eps['url_video'] ?>" id="video">
-                            <p>Existing Video: <?= $eps['url_video'] ?></p>
+                            <p class="filename">Existing Video: <?= $eps['url_video'] ?></p>
                         </li>
                         <li>
                             <label for="subtitle">Subtitle: </label>
                             <input type="file" name="subtitle" id="subtitle" accept=".vtt, .srt">
 
                             <input type="hidden" name="old_subtitle" value="<?= $eps['url_subtitle'] ?>" id="subtitle">
-                            <p>Existing subtitle: <?= $eps['url_subtitle'] ?></p>
+                            <p class="filename">Existing subtitle: <span style="color: <?= $eps['url_subtitle'] ? '' : 'darkgoldenrod' ?>"><?= $eps['url_subtitle'] ? $eps['url_subtitle'] : 'Empty' ?></span></p>
                         </li>
                         <li>
-                            <p class="date"><?= $eps['launched_at'] ?></p>
+                            <p class="date"><?= $formattedDate ?></p>
                         </li>
                         <button type="submit" name="update" class="btn-eps">Update</button>
                         <hr>
