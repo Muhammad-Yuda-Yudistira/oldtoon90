@@ -5,6 +5,8 @@ require_once "../models/user/usersModel.php";
 require_once "../controllers/user/comment/commentsController.php";
 require_once "../controllers/film/filmController.php";
 
+$title = $_GET['title'];
+$eps = $_GET['eps'];
 
 if(isset($_SESSION['username']))
 {
@@ -18,8 +20,8 @@ if(isset($_POST['send']))
 {
     $dataComment['username'] = $username;
     $dataComment['message'] = $_POST['message'];
-    $dataComment['title'] = $_GET['title'];
-    $dataComment['eps'] = $_GET['eps'];
+    $dataComment['title'] = $title;
+    $dataComment['eps'] = $eps;
     
     addComment($dataComment);
 }
@@ -62,10 +64,11 @@ $comments = $result['comments'];
     </div>
 <?php endif; ?>
 
-<?php if(!empty($comments)): ?>
+<?php foreach($comments as $comment): ?>
+<?php if(!empty($comments) and $IdFilm == $comment['title_id'] and $eps == $comment['episode']): ?>
     <div class="container-all-comment">
         <div class="container-comments">
-            <?php foreach($comments as $comment): ?>
+            
                 <?php if($idFilm == $comment['title_id'] && $eps == $comment['episode']): ?>
                     <div class="comment-result">
                         <div class="comment-title">
@@ -171,21 +174,24 @@ $comments = $result['comments'];
                         </div>
                     </div>
                 <?php endif; ?>
-            <?php endforeach; ?>
+            
         </div>
         <div class="comment-paginate">
             <?php if($currentComment > 1): ?>
                 <a href="<?= $baseurl . 'controllers/ajax/comment-paginate.php?title=' . $title . '&eps=' . $eps . '&currentComment=' . ($currentComment - 1) ?>" class="pagination">&laquo;</a>
             <?php endif; ?>
             <?php for($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="<?= $baseurl . 'controllers/ajax/comment-paginate.php?title=' . $title . '&eps=' . $eps . '&currentComment=' . $i ?>" class="pagination <?= $currentComment == $i ? 'active' : ''; ?>"><?= $i ?></a>
+                <?php if($totalPages > 1): ?>
+                    <a href="<?= $baseurl . 'controllers/ajax/comment-paginate.php?title=' . $title . '&eps=' . $eps . '&currentComment=' . $i ?>" class="pagination <?= $currentComment == $i ? 'active' : ''; ?>"><?= $i ?></a>
+                <?php endif; ?>
             <?php endfor; ?>
             <?php if($currentComment < $totalPages): ?>
                 <a href="<?= $baseurl . 'controllers/ajax/comment-paginate.php?title=' . $title . '&eps=' . $eps . '&currentComment=' . ($currentComment + 1) ?>" class="pagination">&raquo;</a>
             <?php endif; ?>
         </div>
     </div>
-    <?php else: ?>
-        <h1 class="comment-empty">Comment not found!</h1>
-    <?php endif; ?>
-
+<?php else: ?>
+    <h1 class="comment-empty">Comment not found!</h1>
+    <?php break; ?>
+<?php endif; ?>
+<?php endforeach; ?>

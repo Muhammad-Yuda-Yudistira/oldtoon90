@@ -13,7 +13,8 @@ function getCommentsPagination()
 
     $totalRows = getTotalRows();
 
-    $totalPages = ceil($totalRows / $commentsPerPage);
+    $totalPages = $totalRows / $commentsPerPage;
+    $totalPages = ceil($totalPages);
     $offset = ($currentComment - 1) * $commentsPerPage;
 
     $comments = getComments($commentsPerPage, $offset);
