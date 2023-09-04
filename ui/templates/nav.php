@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-danger">
+<nav class="navbar navbar-expand-lg bg-danger" data-bs-theme="dark">
   <div class="container justify-content-between">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,10 +7,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?= $baseurl ?>ui/home.php">Home</a>
+          <a class="nav-link" aria-current="page" href="<?= $baseurl ?>ui/home.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?= $baseurl ?>ui/user/main.php">Film</a>
+          <a class="nav-link active" href="<?= $baseurl ?>ui/user/main.php">Film</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true" href="<?= $baseurl ?>ui/fanart/image.php" >Image</a>
@@ -20,9 +20,9 @@
         </li>
     </ul>
     </div>
-    <div class="collapse navbar-collapse ml-auto" id="navbarNav">
+    <div class="collapse navbar-collapse" id="navbarNav">
         <?php if (!isset($_SESSION['login'])) :?>
-          <ul class="navbar-nav">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="<?= $baseurl ?>ui/user/login.php">Login</a>
             </li>
@@ -33,7 +33,7 @@
         <?php endif; ?>
 
         <?php if (isset($_SESSION['login'])) :?>
-          <ul class="navbar-nav">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="<?= $baseurl ?>ui/user/logout.php">Logout</a>
             </li>
