@@ -8,11 +8,19 @@ html {
     margin: 0;
     padding: 0;
 }
+/* default class for admin page */
 .container-admin {
     max-width: 100vw;
     min-height: 100vh;
     background-color: #ddd;
 }
+.middle-box
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* default class for admin page */
 .content-admin {
     text-align: center;
     margin-left: 20%;
@@ -44,16 +52,24 @@ html {
 
 .btn-admin {
     text-decoration: none;
-    background-color: blue;
     padding: 3px 15px;
     border-radius: 8px;
     color: #eee;
     font-family: arial;
     font-weight: bold;
 }
-.btn-admin:nth-child(2) {
+#edit {
     background-color: green;
 }
-.btn-admin:nth-child(3) {
+#delete {
     background-color: red;
+}
+#add {
+    background-color: blue;
+}
+#view {
+    background-color: sandybrown;
+}
+#edit:hover, #delete:hover, #add:hover, #view:hover {
+    opacity: .7;
 }

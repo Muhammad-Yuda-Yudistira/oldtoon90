@@ -1,0 +1,14 @@
+.film-status {
+    list-style-type: none;
+    font-size: 1.2rem;
+}
+.film-status li span {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+.end-line {
+    height: 4px;
+    background-color: rgb(122, 141, 134);
+    margin-top: 10px;
+    margin-bottom: 30px;
+}

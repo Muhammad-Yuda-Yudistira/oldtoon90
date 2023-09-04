@@ -35,7 +35,7 @@ $id = $_GET['id'];
                         <li><span class="list-detail">Title:</span> <?= $d['title'] ?></li>
                         <li><span class="list-detail">Episode:</span> <?= $d['episode'] ?></li>
                         <li><span class="list-detail">Film:</span> <?= $d['film'] ?></li>
-                        <li><span class="list-detail">Type:</span> <?= $d['type'] ?></li>
+                        <li><span class="list-detail">Type:</span> <?= $d['tipe'] ?></li>
                         <li><span class="list-detail">Aired:</span> <?= $d['aired'] ?></li>
                         <li><span class="list-detail">Series:</span> <?= $d['series'] ?></li>
                         <li><span class="list-detail">Franchise:</span> <?= $d['franchise'] ?></li>

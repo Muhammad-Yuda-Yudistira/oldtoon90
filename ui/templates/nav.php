@@ -1,7 +1,7 @@
 <nav class="nav-main">
     <ul>
         <div class="logo">
-            <a href="<?= $baseurl ?>ui/home.php">
+            <a href="<?= $baseurl ?>ui/home.php" class="close">
                 <li>Home</li>
             </a>
         </div>
@@ -9,10 +9,10 @@
             <a href="<?= $baseurl ?>ui/user/main.php">
                 <li>Film</li>
             </a>
-            <a href="<?= $baseurl ?>ui/fanart/image.php">
+            <a href="<?= $baseurl ?>ui/fanart/image.php" class="close">
                 <li>Image</li>
             </a>
-            <a href="<?= $baseurl ?>ui/fanart/komik.php">
+            <a href="<?= $baseurl ?>ui/fanart/komik.php" class="close">
                 <li>Komik</li>
             </a>
         </div>
@@ -34,7 +34,7 @@
 
                 <a href="" class="box-profile">
                     <li class="profile">
-                        <img src="<?= $baseurl ?>images/users/blank-profile.webp">
+                        <img src="<?= $baseurl ?>images/users/blank-profile.webp" title="<?= $_SESSION['username'] ?>">
                     </li>
                 </a>
 

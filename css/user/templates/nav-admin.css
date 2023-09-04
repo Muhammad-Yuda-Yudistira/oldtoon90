@@ -35,6 +35,10 @@
 .nav-menu .menu-item:hover {
     background-color: rgb(13, 73, 53);
 }
+.menu-item.empty a{
+    text-decoration: line-through solid red 3px;
+    pointer-events: none;
+}
 .menu-item:hover a {
     color: rgb(12, 145, 100);
 }

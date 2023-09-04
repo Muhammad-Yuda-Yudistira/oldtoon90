@@ -5,37 +5,37 @@ require "../../../controllers/film.php";
 
 if(isset($_COOKIE['remember']))
 {
-    $email = $_SESSION['email'];
-    $_SESSION['admin'] = "admin";
+    $_SESSION['role'] = "admin";
 }
  
 if(isset($_POST['add']))
 {
     $fileName = uploadFilm($_FILES['cover']);
-
-    $data['film'] = [
-        "title" => $_POST['title'],
-        "episode" => $_POST['episode'],
-        "film" => $_POST['film'],
-        "type" => $_POST['type'],
-        "aired" => $_POST['aired'],
-        "series" => $_POST['series'],
-        "franchise" => $_POST['franchise'],
-        "authors" => $_POST['authors'],
-        "artists" => $_POST['artists'],
-        "studios" => $_POST['studios'],
-        "cover" => $fileName,
-        "channel" => $_POST['channel'],
-        "year" => $_POST['year'],
-        "day" => $_POST['day']
-    ];
     
-    addFilm($data);
+    $result = addFilm($_POST, $fileName);
 
+    switch($result)
+    {
+        case 1:
+            echo "judul film sudah terdaftar! <a href='" . $baseurl . "ui/user/contents/film.php'>Back</a>";
+            break;
+        case 2:
+            echo "data film gagal di kirim!";
+            break;
+        case 3:
+            echo "data tv local gagal di kirim!";
+            break;
+        case 4:
+            echo "<script>alert('Film berhasil ditambahkan')</script>";
+    
+            header("Location:" .$baseurl . "ui/user/admin.php");
+            exit();
+    }
+    die;
 }
 ?>
 
-<?php if($_SESSION['admin'] == "admin"): ?>
+<?php if($_SESSION['role'] == "admin"): ?>
     <?php require "../templates/header-admin.php" ?>
 
     <div class="container-admin">
@@ -55,26 +55,32 @@ if(isset($_POST['add']))
                         <label for="episode">jumlah episode :</label>
                         <input type="number" name="episode" id="episode">
                     </li>
-                    <li class="radio-input">
-                        <input type="radio" name="film" id="serial" value="serial">
-                        <label for="serial">serial</label>
-
-                        <input type="radio" name="film" id="movie" value="movie">
-                        <label for="movie">movie</label>
-                    </li>
-                    <li class="radio-input">
-                        <input type="radio" name="type" id="cartoon" value="cartoon">
-                        <label for="cartoon">cartoon</label>
-
-                        <input type="radio" name="type" id="anime" value="anime">
-                        <label for="anime">anime</label>
-
-                        <input type="radio" name="type" id="real" value="real">
-                        <label for="real">real</label>
-                    </li>
+                    <fieldset class="group-input-film">
+                        <legend>jenis film :</legend>
+                        <li class="radio-input">
+                            <input type="radio" name="film" id="serial" value="serial">
+                            <label for="serial">serial</label>
+    
+                            <input type="radio" name="film" id="movie" value="movie">
+                            <label for="movie">movie</label>
+                        </li>
+                    </fieldset>
+                    <fieldset class="group-input-film">
+                        <legend>type film :</legend>
+                        <li class="radio-input">
+                            <input type="radio" name="tipe" id="cartoon" value="cartoon">
+                            <label for="cartoon">cartoon</label>
+    
+                            <input type="radio" name="tipe" id="anime" value="anime">
+                            <label for="anime">anime</label>
+    
+                            <input type="radio" name="tipe" id="real" value="real">
+                            <label for="real">real</label>
+                        </li>
+                    </fieldset>
                     <li>
                         <label for="aired">aired :</label>
-                        <input type="month" name="aired" id="aired">
+                        <input type="number" name="aired" min="1900" max="2099" step="1" placeholder="Tahun" required id="aired">
                     </li>
                     <li>
                         <label for="series">series :</label>
@@ -100,51 +106,57 @@ if(isset($_POST['add']))
                         <label for="cover">cover :</label>
                         <input type="file" name="cover" id="cover" accept=".jpg, .jpeg, .jfif, webp">
                     </li>
-                    <li class="checkbox-input">
-                        <input type="checkbox" name="channel[]" id="tpi" value="tpi">
-                        <label for="tpi">tpi</label>
-
-                        <input type="checkbox" name="channel[]" id="indosiar" value="indosiar">
-                        <label for="indosiar">indosiar</label>
-
-                        <input type="checkbox" name="channel[]" id="antv" value="antv">
-                        <label for="antv">antv</label>
-
-                        <input type="checkbox" name="channel[]" id="rcti" value="rcti">
-                        <label for="rcti">rcti</label>
-
-                        <input type="checkbox" name="channel[]" id="sctv" value="sctv">
-                        <label for="sctv">sctv</label>
-
-                        <input type="checkbox" name="channel[]" id="trans7" value="trans7">
-                        <label for="trans7">trans7</label>
-                    </li>
+                    <fieldset class="group-input-film">
+                        <legend>channel local :</legend>
+                        <li class="checkbox-input">
+                            <input type="checkbox" name="channel[]" id="tpi" value="tpi">
+                            <label for="tpi">tpi</label>
+    
+                            <input type="checkbox" name="channel[]" id="indosiar" value="indosiar">
+                            <label for="indosiar">indosiar</label>
+    
+                            <input type="checkbox" name="channel[]" id="antv" value="antv">
+                            <label for="antv">antv</label>
+    
+                            <input type="checkbox" name="channel[]" id="rcti" value="rcti">
+                            <label for="rcti">rcti</label>
+    
+                            <input type="checkbox" name="channel[]" id="sctv" value="sctv">
+                            <label for="sctv">sctv</label>
+    
+                            <input type="checkbox" name="channel[]" id="trans7" value="trans7">
+                            <label for="trans7">trans7</label>
+                        </li>
+                    </fieldset>
                     <li>
                         <label for="year">year :</label>
                         <input type="number" name="year" id="year" maxlength="4" value="1945">
                     </li>
-                    <li class="checkbox-input">
-                        <input type="checkbox" name="day[]" id="senin" value="senin">
-                        <label for="senin">senin</label>
-
-                        <input type="checkbox" name="day[]" id="selasa" value="selasa">
-                        <label for="selasa">selasa</label>
-
-                        <input type="checkbox" name="day[]" id="rabu" value="rabu">
-                        <label for="rabu">rabu</label>
-
-                        <input type="checkbox" name="day[]" id="kamis" value="kamis">
-                        <label for="kamis">kamis</label>
-
-                        <input type="checkbox" name="day[]" id="jumat" value="jumat">
-                        <label for="jumat">jumat</label>
-
-                        <input type="checkbox" name="day[]" id="sabtu" value="sabtu">
-                        <label for="sabtu">sabtu</label>
-
-                        <input type="checkbox" name="day[]" id="minggu" value="minggu">
-                        <label for="minggu">minggu</label>
-                    </li>
+                    <fieldset class="group-input-film">
+                        <legend>jadwal tayang channel local :</legend>
+                        <li class="checkbox-input">
+                            <input type="checkbox" name="day[]" id="senin" value="senin">
+                            <label for="senin">senin</label>
+    
+                            <input type="checkbox" name="day[]" id="selasa" value="selasa">
+                            <label for="selasa">selasa</label>
+    
+                            <input type="checkbox" name="day[]" id="rabu" value="rabu">
+                            <label for="rabu">rabu</label>
+    
+                            <input type="checkbox" name="day[]" id="kamis" value="kamis">
+                            <label for="kamis">kamis</label>
+    
+                            <input type="checkbox" name="day[]" id="jumat" value="jumat">
+                            <label for="jumat">jumat</label>
+    
+                            <input type="checkbox" name="day[]" id="sabtu" value="sabtu">
+                            <label for="sabtu">sabtu</label>
+    
+                            <input type="checkbox" name="day[]" id="minggu" value="minggu">
+                            <label for="minggu">minggu</label>
+                        </li>
+                    </fieldset>
                     <button type="submit" name="add">add film</button>
                 </form>
             </ul>

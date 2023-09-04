@@ -13,6 +13,7 @@ const baseurl = "http://localhost/2023/mei/oldtoon90/"
 document.addEventListener('DOMContentLoaded', function() {
     // Tempatkan seluruh kode JavaScript Anda di sini
     streaming.addEventListener('play', () => {
+        streaming.volume = .65
         containerStream.style.backgroundColor = "#333" 
         subTitle.style.color = "#47A992"
     })

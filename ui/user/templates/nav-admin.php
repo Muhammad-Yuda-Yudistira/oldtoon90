@@ -9,10 +9,10 @@
                 <a href="<?= $baseurl ?>ui/user/admin.php">Film</a>
             </li>
             <h4 class="menu-category">Fanart</h4>
-            <li class="menu-item">
+            <li class="menu-item empty">
                 <a href="<?= $baseurl ?>ui/user/contents/image.php">image</a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item empty">
                 <a href="<?= $baseurl ?>ui/user/contents/comic.php">comic</a>
             </li>
             <h4 class="menu-category">admin</h4>

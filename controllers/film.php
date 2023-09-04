@@ -1,56 +1,77 @@
 <?php 
-require_once "dbs.php";
+require_once __DIR__ . "/dbs.php";
 
 function uploadFilm($data)
 {
-    $fileName = $data['name'];
+    global $baseurl;
+
     $tmpName = $data['tmp_name'];
+    $fileName = $data['name'];
+    $ekstensi = explode('.', $fileName);
 
-    move_uploaded_file($tmpName, '../../../images/' . $fileName);
+    $panjangString = 10;
+    $karakter = $fileName;
+    $randomString = substr(str_shuffle($karakter), 0, $panjangString);
+    $newFileName = $randomString . "." . end($ekstensi);
 
-    return $fileName;
+    move_uploaded_file($tmpName, "../../../images/covers/" . $newFileName);
+
+    return $newFileName;
 }
 
-function uploadEpisode($title, $data)
+function updateCoverFilm($data, $existingCover)
 {
-    // global $videoServerUrl;
+    $tmpName = $data['tmp_name'];
+    $fileName = $data['name'];
+    $ekstensi = explode('.', $fileName);
 
-    $nameVideo = $data['video']['name'];
-    $tmpNameVideo = $data['video']['tmp_name'];
+    if(!empty($fileName))
+    {
+        $panjangString = 10;
+        $karakter = $fileName;
+        $randomString = substr(str_shuffle($karakter), 0, $panjangString);
+        $newFileName = $randomString . "." . end($ekstensi);
 
-    $nameSubtitle = $data['subtitle']['name'];
-    $tmpNameSubtitle = $data['subtitle']['tmp_name'];
+        $targetDirectory = "../../../images/covers/";
+        $targetFile = $targetDirectory . $newFileName;
 
-    move_uploaded_file($tmpNameVideo, '../../../../dbs-film/' . $title . "/" . $nameVideo);
-    move_uploaded_file($tmpNameSubtitle, '../../../videos/' . $nameSubtitle);
+        $allCover = glob($targetDirectory . '*');
+        foreach($allCover as $file)
+        {
+            if($file == $targetDirectory . $existingCover)
+            {
+                unlink($file);
+            }
+        }
 
-    $names = [
-        "nameVideo" => $nameVideo,
-        "nameSubtitle" => $nameSubtitle,
-    ];
+    move_uploaded_file($tmpName, $targetFile);
+    }
+    else
+    {
+        $newFileName = $existingCover;
+    }
 
-    return $names;
+    return $newFileName;
 }
 
-function addFilm($data)
+function addFilm($data, $fileName)
 {
     global $baseurl;
 
-    $title = $data['film']['title'];
-    $episode = $data['film']['episode'];
-    $film = $data['film']['film'];
-    $type = $data['film']['type'];
-    $aired = $data['film']['aired'];
-    $series = $data['film']['series'];
-    $franchise = $data['film']['franchise'];
-    $authors = $data['film']['authors'];
-    $artists = $data['film']['artists'];
-    $studios = $data['film']['studios'];
-    $cover = $data['film']['cover'];
-    $channel = $data['film']['channel'];
-    $year = $data['film']['year'];
-    $day = $data['film']['day'];
-
+    $title = $data['title'];
+    $episode = $data['episode'];
+    $film = $data['film'];
+    $tipe = $data['tipe'];
+    $aired = $data['aired'];
+    $series = $data['series'];
+    $franchise = $data['franchise'];
+    $authors = $data['authors'];
+    $artists = $data['artists'];
+    $studios = $data['studios'];
+    $cover = $fileName;
+    $channel = $data['channel'];
+    $year = $data['year'];
+    $day = $data['day'];
     $hubChannel = "";
     $hubDay = "";
 
@@ -69,7 +90,16 @@ function addFilm($data)
 
     $cover = "images/covers/" . $cover; 
 
-    $resultFilm = addQuery("INSERT INTO film VALUES('','$title',$episode,'$film','$type','$aired',$series,'$franchise','$authors','$artists','$studios','$cover')");
+    $allFilm = query("SELECT * FROM film");
+    foreach($allFilm as $filmItem)
+    {
+        if($filmItem['title'] == $title)
+        {
+            return 1;
+        }
+    }
+
+    $resultFilm = addQuery("INSERT INTO film VALUES('','$title',$episode,'$film','$tipe','$aired',$series,'$franchise','$authors','$artists','$studios','$cover')");
 
     if($resultFilm > 0)
     {
@@ -80,19 +110,78 @@ function addFilm($data)
     
         if($result > 0)
         {
-            echo "<script>alert('Film berhasil ditambahkan')</script>";
+            return 4;
+        }
+        return 3;
+    }
+    else 
+    {
+        return 2;
+    }
+}
+
+function updateFilm($data, $fileName, $titleDBS)
+{
+    global $baseurl;
+
+    $title = $data['title'];
+    $episode = $data['episode'];
+    $film = $data['film'];
+    $type = $data['type'];
+    $aired = $data['aired'];
+    $series = $data['series'];
+    $franchise = $data['franchise'];
+    $authors = $data['authors'];
+    $artists = $data['artists'];
+    $studios = $data['studios'];
+    $cover = $fileName;
+    $channel = $data['channel'];
+    $year = $data['year'];
+    $day = $data['day'];
+
+    // $year = intval($year);
+    $hubChannel = "";
+    $hubDay = "";
+
+    foreach($channel as $c)
+    {
+        $hubChannel .= $c . ",";
+    }
+    foreach($day as $d)
+    {
+        $hubDay .= $d . ",";
+    }
+
+    $hubChannel = rtrim($hubChannel, ",");
+    $hubDay = rtrim($hubDay, ",");
+
+    $cover = "images/covers/" . $cover; 
+
+    $resultFilm = updateQuery("UPDATE film SET title='$title', episode=$episode, film='$film', tipe='$type',aired='$aired', series=$series, franchise='$franchise', authors='$authors', artists='$artists',studios='$studios', cover='$cover' WHERE title='$titleDBS'");
+
+    if($resultFilm !== false)
+    {
+        $idFilm = query("SELECT id FROM film WHERE title='$titleDBS'");
+        $idFilm = $idFilm[0]['id'];
+        $idfilm = intval($idFilm);
+        
+        $result = updateQuery("UPDATE tayang_local SET title_id=$idFilm, channel='$hubChannel', tahun=$year,hari='$hubDay' WHERE title_id=$idFilm");
+    
+        if($result !== false)
+        {
+            echo "<script>alert('Film berhasil diupdate')</script>";
     
             header("Location:" .$baseurl . "ui/user/admin.php");
             exit();
         }
-        echo "data tv local gagal di kirim!"; die;
+        echo "data tv local gagal di update! query salah"; die;
     }
     else 
     {
-        echo "data film gagal di kirim!";die;
+        echo "data film gagal di update! query salah";die;
     }
-}
 
+}
 function addEpisode($fileName, $title, $epsData)
 {
     global $baseurl, $videoServerUrl;

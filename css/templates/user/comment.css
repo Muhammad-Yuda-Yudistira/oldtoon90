@@ -1,3 +1,10 @@
+:root {
+    --nav-high: 60px;
+}
+
+.comment-box.hidden {
+    display: none;
+}
 .comment, .comment-result {
     display: flex;
     background-color: #7A3E3E;
@@ -12,6 +19,7 @@
 .comment-result {
     background-color: #eee;
     justify-content: center;
+    width: 100%;
 }
 .comment .profile, .comment-result .profile {
     margin-right: 30px;
@@ -21,13 +29,64 @@
     display: grid;
     padding-bottom: 10px;
 }
+textarea#message {
+    color: #666;
+    font-size:1rem;
+    padding:3px 6px;
+}
 .comment #message, .comment-result #message {
     height: 140px;
     width: 600px;
 }
-.comment .btn {
+.comment .btn, .btn-reply {
     width: 100px;
     height: 30px;
     color: #47A992;
     font-weight: 600;
+    text-transform: capitalize;
+}
+.bar-bawah-comment {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.container-comment-reply {
+    width: 48%;
+}
+.comment.comment-reply {
+    width: 100%;
+    padding: 10px 25px;
+    margin-top: 20px;
+    display: none;
+    scroll-margin: var(--nav-high);
+}
+.comment.comment-reply #message {
+    width: 450px;
+}
+.btn-batal {
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #999;
+    text-transform: capitalize;
+}
+.pagination {
+    text-decoration-line: none;
+}
+.pagination.active {
+    font-weight: bold;
+}
+.lipatan {
+    color: #7A3E3E;
+    cursor: pointer;
+    padding-left: 30px;
+    width: 130px;
+    box-sizing: content-box;
+}
+.kolom-comment {
+    scroll-margin: var(--nav-high);
+}
+.comment-empty {
+    height: 300px;
+    line-height: 300px;
 }

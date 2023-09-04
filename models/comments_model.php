@@ -3,17 +3,17 @@ require_once "../controllers/dbs.php";
 
 function getComment()
 {
-    return query("SELECT user.email, user.picture, user_comment.title_id,user_comment.episode,user_comment.comment, user_comment.created_at FROM user INNER JOIN user_comment ON user.id = user_comment.user_id ORDER BY user_comment.created_at DESC");
+    return query("SELECT user.username, user.picture, user_comment.id, user_comment.title_id,user_comment.episode,user_comment.comment, user_comment.created_at FROM user INNER JOIN user_comment ON user.id = user_comment.user_id ORDER BY user_comment.created_at DESC");
 }
 
 function addComment($data) 
 {
-    $user = $data['user'];
+    $username = $data['username'];
     $message = $data['message'];
     $title = $data['title'];
     $eps = $data['eps'];
 
-    $userID = Query("SELECT id FROM user WHERE email='$user'");
+    $userID = Query("SELECT id FROM user WHERE username='$username'");
     if($userID == "data tidak ada")
     {
         $userID = 10;

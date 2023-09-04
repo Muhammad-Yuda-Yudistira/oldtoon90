@@ -8,19 +8,35 @@ $_SESSION['titleFilm'] = $title;
 $idTitle = query("SELECT id FROM film WHERE title='$title'");
 $titleId = $idTitle[0]['id'];
 
-// data icons
+
+
+// Mulai transaksi
+mysqli_begin_transaction($conn);
+
 $iconValue = query("SELECT * FROM user_reaction WHERE title_id='$titleId' AND episode=$eps");
-if($iconValue == "data tidak ada")
-{
+
+if (empty($iconValue)) {
     $result = addQuery("INSERT INTO user_reaction VALUES('','$titleId',$eps,'','','')");
-    $iconValue = query("SELECT * FROM user_reaction WHERE title='$titleId' AND episode=$eps");
+    if ($result > 0) {
+        // Commit transaksi jika operasi-insert berhasil
+        mysqli_commit($conn);
+        $iconValue = query("SELECT * FROM user_reaction WHERE title_id='$titleId' AND episode=$eps");
+    } else {
+        // Rollback transaksi jika operasi-insert gagal
+        mysqli_rollback($conn);
+    }
 }
+
 $iconValue = $iconValue[0];
 
 $titleId = $iconValue['title_id'];
 $watched = $iconValue['watched'];
 $like = $iconValue['liked'];
 $nostalgia = $iconValue['nostalgia'];
+
+// Selesai transaksi (tidak perlu jika sudah di-commit)
+mysqli_commit($conn);
+
 
 // data user
 if(isset($_SESSION['email']))

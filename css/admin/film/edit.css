@@ -1,0 +1,48 @@
+.edit-container.content-admin {
+    flex-direction: row;
+    justify-content: start;
+}
+.head-title {
+    font-size: 1.6rem;
+    padding-bottom: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.head-title hr {
+    margin-top: 10px;
+}
+.status-eps {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1rem;
+}
+.status-eps li {
+    padding-bottom: 5px;
+}
+.status-eps input {
+    color: #222;
+}
+.status-eps hr {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.status-eps .filename span {
+    font-size: 1.1rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.film-status.edit-status {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 30px auto;
+}
+.box-general {
+    padding-right: 80px;
+}
+.btn-eps {
+    margin-top: 10px;
+    width: 80px;
+    color: #bc8f8f;
+    font-weight: 600;
+    font-size: 1rem;
+}
+.date {
+    color: #666;
+}
