@@ -5,6 +5,8 @@ date_default_timezone_set('Asia/Jakarta');
 require "../../config/config.php";
 require "../../controllers/film.php";
 
+$nameMenu = 'Film';
+
 $film = file_get_contents("../../data/film.json");
 $film = json_decode($film, true);
 $data = query("SELECT * FROM film");
@@ -34,8 +36,8 @@ if(isset($_COOKIE['remember']))
 }
 ?>
 
-<?php require "../templates/header.php" ?>
-<?php require "../templates/nav.php" ?>
+<?php include "../templates/header.php" ?>
+<?php include "../templates/nav.php" ?>
 
     <div class="container" style="overflow-x: hidden;">
         

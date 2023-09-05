@@ -1,7 +1,9 @@
 <?php require "../config/config.php"; ?>
 
-<?php require_once "templates/header.php" ?>
-<?php require_once "templates/nav.php" ?>
+<?php $nameMenu = 'Home'; ?>
+
+<?php include "templates/header.php" ?>
+<?php include "templates/nav.php" ?>
 
 <div class="container">
     <!-- about section -->

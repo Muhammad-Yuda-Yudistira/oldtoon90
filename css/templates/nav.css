@@ -68,3 +68,15 @@ a {
     text-decoration: line-through solid red 3px;
     pointer-events: none;
 }
+
+@media (max-width: 768px) {
+    .mynavbar .offcanvas-body {
+        font-size: 20px;
+        color: rebeccapurple;
+    }
+    .mynav-sec {
+        border-top: dashed 3px red;
+        margin-top: 80px;
+        padding-top: 30px;
+    }
+}
