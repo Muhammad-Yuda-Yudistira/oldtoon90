@@ -41,6 +41,7 @@
 
     <link rel="stylesheet" href="<?= $baseurl ?>css/templates/footer.css">  
     <link rel="stylesheet" href="<?= $baseurl ?>css/style.css">
+    <link rel="stylesheet" href="<?= $baseurl ?>css/design-system.css">
     <link rel="stylesheet" href="<?= $baseurl ?>css/umum/items.css">
 
     <link rel="stylesheet" href="<?= $baseurl ?>css/templates/user/reaction-icon.css">

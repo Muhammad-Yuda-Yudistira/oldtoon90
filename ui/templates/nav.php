@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary fixed-top mynavbar">
   <div class="container">
-    <a class="navbar-brand" href="#">Oldtoon90</a>
+    <a class="navbar-brand" href="<?= $baseurl ?>ui/user/main.php">
+      <img src="<?= $baseurl ?>favicomatic\favicon-32x32.png" alt="Bootstrap" height="">
+      Oldtoon90
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

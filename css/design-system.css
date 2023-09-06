@@ -1,0 +1,31 @@
+:root {
+    /* color pallete */
+    --color-primary: #fa5d34;
+    --color-secondary: #313237;
+    --color-tersiery: #ffffff;
+    --color-support-1: #35a8dc; 
+    --color-support-2: #ffc03f;
+    /* typeface */
+    --font-primary: verdana;
+    --font-secondary: lao;
+    --font-title: "arial black";
+    --font-subtitle: consolas;
+    --font-text: arial;
+    /* typografi */
+    /* 
+    --size-title:
+    --size-subtitle:
+    --size-text: 
+    */
+    /* patern */
+    --patern-primary: url("images\themes\fancy-cushion.webp");
+    --patern-secondary: url("images\themes\watercolor.webp");
+    --patern-tersiery: url("images\themes\geometric-leaves.webp");
+    /* image */
+    --image-primary: url("images\themes\Retro TV (AI style).png");
+    --image-secondary: url("images\themes\TV Controller (AI style).png");
+    --image-support-1: url("images\themes\Brotherhood (AI style).png");
+    --image-support-2: url("images\themes\Tshirt (AI style).png");
+    /* sumber for image */
+    /* <a href="https://www.pixcap.com">Made with Pixcap AI, pixcap.com</a> */
+}
