@@ -2,15 +2,17 @@
     position: absolute;
     display: flex;
     justify-content: space-between;
-    top: 50px;
-    padding: 5px 100px;
-    background-color: #7A3E3E;
+    align-items: start;
+    top: 60px;
+    padding: 0px 100px;
+    background-color: var(--color-secondary);
     width: 100%;
-    color: #eee;
+    height: 28px;
+    color: var(--color-tersiery);
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     text-align: end;
-    box-shadow: 0px 0px 2px #fff;
+    box-sizing: inherit;
 }
 .nav-second ul {
     list-style: none;
@@ -22,9 +24,14 @@
 }
 .nav-second ul a {
     text-decoration: none;
-    color: #ccc;
+    color: var(--color-tersiery);
     font-weight: 600;
+    margin-bottom: 5px;
+    font-family: var(--font-secondary);
+    width: 10px;
+    height: 5px;
+    padding: 0 10px;
 }
 .nav-second ul a:hover {
-    color: #eee;
+    background-image: var(--color-gradient);
 }

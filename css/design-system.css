@@ -5,9 +5,12 @@
     --color-tersiery: #ffffff;
     --color-support-1: #35a8dc; 
     --color-support-2: #ffc03f;
+    --gradient-vertical: to bottom;
+    --color-gradient: linear-gradient(to right, #979999, #CBCBCC, #828483, #858886, #9E4834, #B24F35, #501C14, #25324B, #1F2E36);
+    --color-gradient-vertical: linear-gradient(var(--gradient-vertical), #979999, #CBCBCC, #828483, #858886, #9E4834, #B24F35, #501C14, #25324B, #1F2E36);
     /* typeface */
     --font-primary: verdana;
-    --font-secondary: lao;
+    --font-secondary: 'Courier New', Courier, monospace;
     --font-title: "arial black";
     --font-subtitle: consolas;
     --font-text: arial;
@@ -28,4 +31,7 @@
     --image-support-2: url("images\themes\Tshirt (AI style).png");
     /* sumber for image */
     /* <a href="https://www.pixcap.com">Made with Pixcap AI, pixcap.com</a> */
+
+    /* others custom */
+    --shadow-me: 0px 0px 2px var(--color-tersiery);
 }
